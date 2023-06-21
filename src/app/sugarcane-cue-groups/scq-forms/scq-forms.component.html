@@ -1,0 +1,78 @@
+<!-- icon -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<div class="content-wrapper p-3">
+  <div class="d-flex">
+    <div class="mr-auto p-2">
+
+      <div class="input-group input-group-sm mb-3">
+        <span class="input-group-text" id="inputGroup-sizing-default">ปีการผลิต</span>
+        <select class="form-select" aria-label="Default select example" [(ngModel)]="selectYear">
+          <option selected>เลือกปีการผลิต</option>
+          <option *ngFor="let y of yearid" [ngValue]="y">{{y.yearDesc}}</option>
+        </select>
+
+        <span class="input-group-text" id="inputGroup-sizing-default"></span>
+        <p> Select {{selectYear|json}} </p>
+        <input type="text" class="form-control" aria-label="Sizing input" aria-describedby="inputGroup-sizing-default"
+          placeholder="ค้นหาเลขที่บัญชี">
+        <button (click)="getCpdataFarmer('0000277626')" class="btn btn-outline-success" type="submit">ค้นหา</button>
+      </div>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="table-responsive mt-3">
+        <div class="mat-elevation-z8">
+
+          <mat-form-field>
+            <mat-label>ค้นหา</mat-label>
+            <input matInput (keyup)="applyFilter($event)" #input>
+          </mat-form-field>
+
+          <section class="example-container mat-elevation-z8" tabindex="0">
+            <table mat-table [dataSource]="alldata">
+
+              <!-- intlandno Column -->
+              <ng-container matColumnDef="intlandno" sticky>
+                <th mat-header-cell *matHeaderCellDef> หมายเลขแปลง </th>
+                <td mat-cell *matCellDef="let element"> {{element.intlandno}} </td>
+              </ng-container>
+
+              <!-- fmname Column -->
+              <ng-container matColumnDef="fmname">
+                <th mat-header-cell *matHeaderCellDef> ชื่อ-สกุล </th>
+                <td mat-cell *matCellDef="let element"> {{element.fmname}} </td>
+              </ng-container>
+
+              <!-- supzone Column -->
+              <ng-container matColumnDef="supzone">
+                <th mat-header-cell *matHeaderCellDef> โซน </th>
+                <td mat-cell *matCellDef="let element"> {{element.supzone}} </td>
+              </ng-container>
+
+              <!-- icon Column -->
+              <ng-container matColumnDef="icon">
+                <th mat-header-cell *matHeaderCellDef> บันทึก </th>
+                <td mat-cell *matCellDef="let element">
+                  <a onclick="showFormCreateBox()"> <span class="material-icons" id="border"> border_color</span></a>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          </section>
+          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+        </div>
+
+      </div>
+    </div>
+    <!-- <div class="col-md-6 mt-3">
+      <app-sugarcane-cue-groups></app-sugarcane-cue-groups>
+    </div>
+  </div> -->
+
+    <app-scq-details> </app-scq-details>
+  </div>

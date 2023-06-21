@@ -1,0 +1,156 @@
+<div class="content-wrapper p-3">
+  <span>ฟอร์มขอเบิกปัจจัยการผลิต</span>
+
+  <hr>
+  <div class="row">
+    <div class="col-md-4">
+      <p>ชื่อ-สกุลชาวไร่ : ...</p>
+      <p>หมายเลขแปลง : ...</p>
+    </div>
+    <div class="col-md-4">
+      <p>ประเภทอ้อย : ...</p>
+    </div>
+    <div class="col-md-4">
+      <p>พื้นที่ : ... ไร่</p>
+    </div>
+  </div>
+
+  <div class="mat-form-field">
+    <span id="stock">สต๊อก</span>
+    <mat-form-field appearance="fill">
+      <mat-label>เลือกสต๊อก</mat-label>
+      <mat-select>
+        <mat-option>None</mat-option>
+        <mat-option value="option1">โรงงาน</mat-option>
+        <mat-option value="option2">โซน 2</mat-option>
+        <mat-option value="option3">โซน 3</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr align="center">
+          <th scope="col">รายการสินค้า</th>
+          <th scope="col">ราคา</th>
+          <th scope="col">จำนวน</th>
+          <th scope="col">เบิกไปแล้ว</th>
+          <th scope="col">เบิกได้อีก</th>
+          <th scope="col">ราคารวม</th>
+        </tr>
+      </thead>
+      <tbody id="" align="center">
+        <tr>
+          <td>
+            <mat-form-field appearance="fill">
+              <mat-label>ปุ๋ยเคมี</mat-label>
+              <mat-select>
+                <mat-option>None</mat-option>
+                <mat-option value="option1">Option 1</mat-option>
+                <mat-option value="option2">Option 2</mat-option>
+                <mat-option value="option3">Option 3</mat-option>
+              </mat-select>
+            </mat-form-field><br>
+            <mat-form-field appearance="fill">
+              <mat-label>ปุ๋ยอินทรีย์</mat-label>
+              <mat-select>
+                <mat-option>None</mat-option>
+                <mat-option value="option1">Option 1</mat-option>
+                <mat-option value="option2">Option 2</mat-option>
+                <mat-option value="option3">Option 3</mat-option>
+              </mat-select>
+            </mat-form-field><br>
+            <mat-form-field appearance="fill">
+              <mat-label>โดโลไมท์</mat-label>
+              <mat-select>
+                <mat-option>None</mat-option>
+                <mat-option value="option1">Option 1</mat-option>
+                <mat-option value="option2">Option 2</mat-option>
+                <mat-option value="option3">Option 3</mat-option>
+              </mat-select>
+            </mat-form-field><br>
+            <mat-form-field appearance="fill">
+              <mat-label>ยา</mat-label>
+              <mat-select>
+                <mat-option>None</mat-option>
+                <mat-option value="option1">Option 1</mat-option>
+                <mat-option value="option2">Option 2</mat-option>
+                <mat-option value="option3">Option 3</mat-option>
+              </mat-select>
+            </mat-form-field><br>
+            <mat-form-field appearance="fill">
+              <mat-label>อุปกรณ์</mat-label>
+              <mat-select>
+                <mat-option>None</mat-option>
+                <mat-option value="option1">Option 1</mat-option>
+                <mat-option value="option2">Option 2</mat-option>
+                <mat-option value="option3">Option 3</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </td>
+          <td id="price">
+            <span>0</span><br>
+            <span>0</span><br>
+            <span>0</span><br>
+            <span>0</span><br>
+            <span>0</span><br>
+          </td>
+          <td>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="0" value="">
+            </mat-form-field><br>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="0" value="">
+            </mat-form-field><br>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="0" value="">
+            </mat-form-field><br>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="0" value="">
+            </mat-form-field><br>
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="0" value="">
+            </mat-form-field>
+          </td>
+          <td><span>0</span><br>
+            <span>0</span><br>
+            <span>0</span><br>
+            <span>0</span><br>
+            <span>0</span><br>
+          </td>
+          <td><span>0</span><br>
+            <span>0</span><br>
+            <span>0</span><br>
+            <span>0</span><br>
+            <span>0</span><br>
+          </td>
+          <td><span>0</span><br>
+            <span>0</span><br>
+            <span>0</span><br>
+            <span>0</span><br>
+            <span>0</span><br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="d-flex">
+      <div class="mr-auto p-2" id="case">
+        <mat-checkbox formControlName="pepperoni">เงินสด</mat-checkbox>
+      </div>
+      <div class="p-2" id="total"><span>รวมทั้งหมด : ...</span>
+      </div>
+    </div>
+
+  </div>
+  <div class="d-flex">
+    <div class="mr-auto p-2">
+      <button mat-raised-button color="primary" routerLink="/Withdraw factors of production">ย้อนกลับ</button>
+    </div>
+    <div class="p-2"> <button mat-raised-button color="accent" routerLink="/Withdraw factors of production">บันทึก</button>
+    </div>
+  </div>
+
+
+

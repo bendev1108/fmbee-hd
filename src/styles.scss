@@ -1,1 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,300;0,500;1,200&family=Chakra+Petch:ital,wght@1,500&family=K2D:ital,wght@1,500&family=Mitr:wght@500&display=swap');
+
+* {
+    font-family: 'Bai Jamjuree', sans-serif;
+    font-family: 'Chakra Petch', sans-serif;
+    font-family: 'K2D', sans-serif;
+    font-family: 'Mitr', sans-serif;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.content-wrapper {
+  background-color: white;
+  margin-bottom: 1rem;
+}

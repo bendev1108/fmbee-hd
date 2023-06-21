@@ -1,0 +1,68 @@
+* {
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-family: 'Chakra Petch', sans-serif;
+  font-family: 'K2D', sans-serif;
+  font-family: 'Mitr', sans-serif;
+}
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 60%;
+  margin-top: 1rem;
+  margin-left: 1rem;
+}
+
+p {
+  margin-top: 1rem;
+}
+
+.col-md-2 {
+  background-color: #F4D03F;
+  border-radius: 0.25rem;
+}
+
+button {
+  border-radius: 0.25rem;
+  border-color: #F4D03F;
+  background-color: #F4D03F;
+  width: 10rem;
+  height: 3rem;
+}
+
+.frist {
+  margin-top: -1rem;
+}
+
+.col-md-6 {
+  border-radius: 0.25rem;
+  width: 25rem;
+  margin-right: 1rem;
+  height: 8rem;
+}
+
+#Assessment {
+  background-color: #58D68D;
+}
+
+#forecast{
+  background-color: #F5B041;
+}
+
+#row1 {
+  margin-bottom: 1rem;
+  border-radius: 0.25rem;
+}
+#row2{
+  // background-color: #F7DC6F;
+  border-radius: 0.25rem;
+}
+
+span {
+  margin-top: 1rem;
+}
+
+.mat-mdc-table {
+  width: 100%;
+  max-height: 500px;
+  overflow: auto;
+}
+

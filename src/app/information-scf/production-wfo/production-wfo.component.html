@@ -1,0 +1,86 @@
+<!-- icon -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<div class="content-wrapper p-3">
+
+  <div class="d-flex">
+    <div class="mr-auto p-2">
+      <div class="input-group input-group-sm mb-3">
+        <span class="input-group-text" id="inputGroup-sizing-default">ปีการผลิต</span>
+        <select class="form-select" aria-label="Default select example"  >
+          <option selected>เลือกปีการผลิต</option>
+          <option *ngFor="let y of yearid" value="{{y.yearCr}}">{{y.yearDesc}}</option>
+        </select>
+        <span class="input-group-text" id="inputGroup-sizing-default"  ></span>
+        <input type="text" class="form-control" aria-label="Sizing input" aria-describedby="inputGroup-sizing-default"
+        placeholder="ค้นหาเลขที่บัญชี" >
+        <button (click)="getCpdataFarmer('2324','0000277626')" class="btn btn-outline-success" type="submit">ค้นหา</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <div class="mat-elevation-z8">
+
+      <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)" #input>
+      </mat-form-field>
+      <section class="example-container mat-elevation-z8" tabindex="0">
+        <table mat-table [dataSource]="alldata">
+
+          <!-- intlandno Column -->
+          <ng-container matColumnDef="intlandno" sticky>
+            <th mat-header-cell *matHeaderCellDef> หมายเลขแปลง </th>
+            <td mat-cell *matCellDef="let element"> {{element.intlandno}} </td>
+          </ng-container>
+
+          <!-- fmname Column -->
+          <ng-container matColumnDef="fmname">
+            <th mat-header-cell *matHeaderCellDef> ชื่อ-สกุล </th>
+            <td mat-cell *matCellDef="let element"> {{element.fmname}} </td>
+          </ng-container>
+
+          <!-- canetype Column -->
+          <ng-container matColumnDef="canetype">
+            <th mat-header-cell *matHeaderCellDef> ประเภทอ้อย </th>
+            <td mat-cell *matCellDef="let element"> {{element.canetype}} </td>
+          </ng-container>
+
+          <!-- supzone Column -->
+          <ng-container matColumnDef="supzone">
+            <th mat-header-cell *matHeaderCellDef> โซน </th>
+            <td mat-cell *matCellDef="let element"> {{element.supzone}} </td>
+          </ng-container>
+
+          <!-- route Column -->
+          <ng-container matColumnDef="route">
+            <th mat-header-cell *matHeaderCellDef> รูท </th>
+            <td mat-cell *matCellDef="let element"> {{element.route}} </td>
+          </ng-container>
+
+          <!-- landvalue Column -->
+          <ng-container matColumnDef="landvalue">
+            <th mat-header-cell *matHeaderCellDef> พื้นที่ </th>
+            <td mat-cell *matCellDef="let element"> {{element.landvalue}} </td>
+          </ng-container>
+
+          <!-- icon Column -->
+          <ng-container matColumnDef="icon">
+            <th mat-header-cell *matHeaderCellDef> เลือก </th>
+            <td mat-cell *matCellDef="let element">
+              <a routerLink="/Withdraw factors of production Form"> <span class="material-icons" id="border"> border_color</span></a>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </section>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    </div>
+
+  </div>
+  <app-production-wfo-detail></app-production-wfo-detail>
+</div>

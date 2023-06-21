@@ -1,0 +1,33 @@
+* {
+  font-family: 'Bai Jamjuree', sans-serif;
+  font-family: 'Chakra Petch', sans-serif;
+  font-family: 'K2D', sans-serif;
+  font-family: 'Mitr', sans-serif;
+}
+
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 60%;
+}
+
+.mat-mdc-table {
+  width: 100%;
+  max-height: 500px;
+  overflow: auto;
+  cursor: pointer;
+}
+
+#border {
+  color: #005eff;
+}
+
+#map {
+  color: green;
+}
+
+#delete {
+  color: red;
+}
+a{
+  margin-right: 1rem;
+}

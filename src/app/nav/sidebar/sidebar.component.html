@@ -1,0 +1,129 @@
+<!-- Main Sidebar Container -->
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <!-- Brand Logo -->
+  <div class="header-box pd-3">
+    <button class="btn d-md-none d-block close-btn px-1 py-0 text-white" data-widget="pushmenu">
+      <i class="fa-solid fa-xmark" style="color: #ffffff;"></i></button>
+    <a class="brand-link">
+      <img [src]="imglogo" alt="BRR" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">BRR</span>
+    </a>
+  </div>
+
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <!-- Sidebar user panel (optional) -->
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="image">
+        <img [src]="imguser" class="img-circle elevation-2" alt="User Image">
+      </div>
+      <div class="info">
+        <a class="d-block">BRF</a>
+      </div>
+
+    </div>
+
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-item">
+          <a routerLink="/" class="nav-link">
+            <i class="fa-solid fa-gauge fa-xl"></i>
+            <p>
+              Dashboard
+            </p>
+          </a>
+        </li>
+        <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+        <!-- <li class="nav-item text-decoration-none pv-2 d-block">
+          <a href="#" class="nav-link">
+            <i class="fa-solid fa-clipboard fa-xl"></i>
+            <p>
+              Dashboard
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a routerLink="/Plot" class="nav-link active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>กิจกรรมรายแปลง</p>
+              </a>
+            </li>
+          </ul>
+        </li> -->
+        <li class="nav-item text-decoration-none pv-2 d-block">
+          <a href="#" class="nav-link">
+            <i class="fa-solid fa-clipboard fa-xl"></i>
+            <p>
+              บันทึกกิจกรรม
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a routerLink="/Plot" class="nav-link active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>กิจกรรมรายแปลง</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item text-decoration-none pv-2 d-block">
+          <a href="#" class="nav-link">
+            <i class="fa-sharp fa-solid fa-database fa-xl"></i>
+            <p>
+              ข้อมูลแปลงอ้อย
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a routerLink="/Promotion money" class="nav-link active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>ขอเงินส่งเสริม</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a routerLink="/Withdraw factors of production" class="nav-link active">
+                <i class="far fa-circle nav-icon"></i>
+                <p>ขอเบิกปัจจัยการผลิต</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/SugarcaneCueGroups" class="nav-link">
+            <i class="fa-sharp fa-solid fa-layer-group fa-xl"></i>
+            <p>
+              จัดกลุ่มคิวอ้อย
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/Map" class="nav-link">
+            <i class="fa-solid fa-map-location-dot fa-xl"></i>
+            <p>
+              แผนที่แปลงอ้อย
+            </p>
+          </a>
+        </li>
+
+        <hr class="h-color mx-2" style="background: white">
+
+        <li class="nav-item">
+          <a routerLink="/login" class="nav-link">
+            <i class="fa-solid fa-arrow-right-from-bracket fa-xl"></i>
+            <p>
+              Login
+            </p>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
+</aside>
