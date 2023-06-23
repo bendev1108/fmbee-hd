@@ -4,6 +4,7 @@ import { BrdsqlService } from '../service/brdsql.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { NgForm } from '@angular/forms';
 
 
 @Component({
@@ -13,15 +14,19 @@ import { MatSort } from '@angular/material/sort';
 })
 export class PlotComponent implements AfterViewInit, OnInit {
 
-  alldata: any;
+  labelPosition: 'before' | 'after' = 'after';
+  alldata?: any = [];
   // fmcode = "0000148033"
-
+  cpfarmerData?: any = [];
+  yearid?: any = [];
+  displayedColumns: string[] = ['intlandno', 'fmname', 'canetype', 'supzone', 'icon'];
+  selectyear = '';
+  selectfm = '';
 
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
 
-  cpfarmerData?: any = [];
-  yearid?: any = [];
+
 
   constructor(private brdsql: BrdsqlService,) { }
 
@@ -30,30 +35,33 @@ export class PlotComponent implements AfterViewInit, OnInit {
     // this.getCpdataFarmer()
 
   }
+
   // เรียกดูข้อมูลปีการผลิต
   async getYearsData() {
     await this.brdsql.getYears().subscribe({
-      next: (year:any) => {
+      next: (year: any) => {
         this.yearid = year.recordset
-        console.log('res :' ,this.yearid)
+        // console.log('res :', this.yearid)
 
       }
     })
   }
 
   // เรียกดูข้อมูลแปลงอ้อยตามปัการผลิตและบัญชีชาวไร่
-  async getCpdataFarmer(year:string ,fmcode:string) {
-    // let year = "2324"
-    // let fmcode = this.fmcode;
+  async getCpdataFarmer() {
+    this.alldata = []
+    let year = this.selectyear;
+    let fmcode = this.selectfm;
     await this.brdsql.getcpDataframer(year, fmcode).subscribe({
       next: (res: any) => {
         let data = res.recordset
         this.alldata = new MatTableDataSource(data);
-        console.log('data', data);
+        // console.log('data', data);
         this.paginator.length = data.length;
         this.paginator.pageSize = 10;
         this.alldata.sort = this.sort;
         this.alldata.paginator = this.paginator;
+
         //console.log('Data form server : ', data)
       }, complete() {
         // ถ้าสำเร็จ ตั้องการทำอะไร ใส่ไว้ตรงนี้
@@ -63,7 +71,28 @@ export class PlotComponent implements AfterViewInit, OnInit {
     })
 
   }
-  displayedColumns: string[] = ['intlandno', 'fmname', 'canetype', 'supzone', 'icon'];
+
+  s_landno?: any = [];
+  select_landno(plant:any) {
+    console.log('element :', plant)
+    //this.s_landno=this.alldata.filter((el:any) => el.itid == itid);
+    this.s_landno=plant;
+    console.log('s_landno', this.s_landno)
+  }
+
+  submit(search: NgForm) {
+    console.log(search.value);
+    console.log(search.valid);
+  }
+
+  submit1(f: any) {
+    console.log('Form value: ' ,f);
+  }
+
+  submitSave(save: NgForm) {
+    console.log(save.value);
+    console.log(save.valid);
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

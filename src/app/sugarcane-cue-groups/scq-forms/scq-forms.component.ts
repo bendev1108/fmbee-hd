@@ -13,6 +13,10 @@ import {NgForm} from '@angular/forms';
 })
 export class ScqFormsComponent implements AfterViewInit, OnInit {
 
+  submit(search:NgForm){
+    console.log(search.valid);
+    console.log(search.value);
+  }
 
   alldata: any;
   // fmcode = "0000148033"
@@ -28,7 +32,6 @@ export class ScqFormsComponent implements AfterViewInit, OnInit {
   ngOnInit(): void {
     this.getYearsData()
     // this.getCpdataFarmer()
-
   }
   selectYear:any;
   // เรียกดูข้อมูลปีการผลิต
@@ -37,32 +40,30 @@ export class ScqFormsComponent implements AfterViewInit, OnInit {
       next: (year:any) => {
         this.yearid = year.recordset
         console.log('res :' ,this.yearid)
-
       }
     })
   }
 
+  selectyear='';
+  selectfm='';
+
   // เรียกดูข้อมูลแปลงอ้อยตามปัการผลิตและบัญชีชาวไร่
-  async getCpdataFarmer(fmcode:string) {
-     let year = this.selectYear.yearCr
-    // let fmcode = this.fmcode;
-    console.log('year', this.selectYear);
+  async getCpdataFarmer() {
+     let year = this.selectyear;
+     let fmcode = this.selectfm;
     await this.brdsql.getcpDataframer(year, fmcode).subscribe({
       next: (res: any) => {
         let data = res.recordset
-
         this.alldata = new MatTableDataSource(data);
         console.log('data', data);
         this.paginator.length = data.length;
         this.paginator.pageSize = 10;
         this.alldata.sort = this.sort;
         this.alldata.paginator = this.paginator;
-
-
         //console.log('Data form server : ', data)
       }, complete() {
         // ถ้าสำเร็จ ตั้องการทำอะไร ใส่ไว้ตรงนี้
-      }, error(_err: any) {
+      }, error(err) {
         alert('เกิดความผิดพลาดในการเรียกข้อมูลจากเซริ์ฟเวอร์')
       },
     })

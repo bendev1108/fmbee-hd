@@ -1,5 +1,6 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA,ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -13,7 +14,6 @@ import { HeaderComponent } from './nav/header/header.component';
 import { FooterComponent } from './nav/footer/footer.component';
 import { SidebarComponent } from './nav/sidebar/sidebar.component';
 import { SettingComponent } from './nav/setting/setting.component';
-import { PlotActivityNextComponent } from './plot-activity/plot-activity-next/plot-activity-next.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { InformationSCFComponent } from './information-scf/information-scf.component';
 import { SugarcaneCueGroupsComponent } from './sugarcane-cue-groups/sugarcane-cue-groups.component';
@@ -42,7 +42,6 @@ import { PlotFormComponent } from './plot/plot-form/plot-form.component';
     FooterComponent,
     SidebarComponent,
     SettingComponent,
-    PlotActivityNextComponent,
     DashboardComponent,
     InformationSCFComponent,
     SugarcaneCueGroupsComponent,
@@ -67,9 +66,12 @@ import { PlotFormComponent } from './plot/plot-form/plot-form.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+
+
   ],
-  providers: [],
+  providers: [ErrorHandler],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA]
 })

@@ -3,7 +3,7 @@ p {
   margin-bottom: 1rem;
 }
 .example-full-width {
-  width: 19rem;
+ // width: 19rem;
   margin-top: 1rem;
   margin-right: 1rem;
 }
@@ -22,5 +22,15 @@ button {
 }
 #label{
   font-size: 12px;
+}
+
+.alert{
+  color: red;
+  text-align: left;
+  font-size: 12px;
+}
+.table-responsive{
+  overflow: auto;
+  cursor: pointer;
 }
 

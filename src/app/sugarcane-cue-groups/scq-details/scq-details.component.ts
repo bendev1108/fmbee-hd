@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { BrdsqlService } from 'src/app/service/brdsql.service';
 import { Recordset } from 'src/app/service/brdsql.module';
+import { NgForm } from '@angular/forms';
 
 
 @Component({
@@ -12,6 +13,11 @@ import { Recordset } from 'src/app/service/brdsql.module';
   styleUrls: ['./scq-details.component.scss']
 })
 export class ScqDetailsComponent implements OnInit {
+
+  submit(search:NgForm){
+    console.log(search.valid);
+    console.log(search.value);
+  }
 
   alldata: any;
   // fmcode = "0000148033"
@@ -22,12 +28,14 @@ export class ScqDetailsComponent implements OnInit {
   cpfarmerData?: any = [];
   yearid?: any = [];
 
+  selectyear!:string;
+  selectfm!:string;
+
   constructor(private brdsql: BrdsqlService,) { }
 
   ngOnInit(): void {
     this.getYearsData()
     // this.getCpdataFarmer()
-
   }
   // เรียกดูข้อมูลปีการผลิต
   async getYearsData() {
@@ -35,27 +43,23 @@ export class ScqDetailsComponent implements OnInit {
       next: (year:any) => {
         this.yearid = year.recordset
         console.log('res :' ,this.yearid)
-
       }
     })
   }
 
   // เรียกดูข้อมูลแปลงอ้อยตามปัการผลิตและบัญชีชาวไร่
-  async getCpdataFarmer(year:string,fmcode:string) {
-    // let year = "2324"
-    // let fmcode = this.fmcode;
+  async getCpdataFarmer() {
+    let year = this.selectyear;
+    let fmcode = this.selectfm;
     await this.brdsql.getcpDataframer(year, fmcode).subscribe({
       next: (res: any) => {
         let data = res.recordset
-
         this.alldata = new MatTableDataSource(data);
         console.log('data', data);
         this.paginator.length = data.length;
         this.paginator.pageSize = 10;
         this.alldata.sort = this.sort;
         this.alldata.paginator = this.paginator;
-
-
         //console.log('Data form server : ', data)
       }, complete() {
         // ถ้าสำเร็จ ตั้องการทำอะไร ใส่ไว้ตรงนี้

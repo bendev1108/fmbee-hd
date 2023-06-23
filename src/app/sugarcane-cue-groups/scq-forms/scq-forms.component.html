@@ -4,21 +4,19 @@
 <div class="content-wrapper p-3">
   <div class="d-flex">
     <div class="mr-auto p-2">
-
-      <div class="input-group input-group-sm mb-3">
-        <span class="input-group-text" id="inputGroup-sizing-default">ปีการผลิต</span>
-        <select class="form-select" aria-label="Default select example" [(ngModel)]="selectYear">
-          <option selected>เลือกปีการผลิต</option>
-          <option *ngFor="let y of yearid" [ngValue]="y">{{y.yearDesc}}</option>
-        </select>
-
-        <span class="input-group-text" id="inputGroup-sizing-default"></span>
-        <p> Select {{selectYear|json}} </p>
-        <input type="text" class="form-control" aria-label="Sizing input" aria-describedby="inputGroup-sizing-default"
-          placeholder="ค้นหาเลขที่บัญชี">
-        <button (click)="getCpdataFarmer('0000277626')" class="btn btn-outline-success" type="submit">ค้นหา</button>
-      </div>
-
+      <form #search="ngForm" (ngSubmit)="submit(search)">
+        <div class="input-group input-group-sm mb-3">
+          <span class="input-group-text" id="inputGroup-sizing-default">ปีการผลิต</span>
+          <select class="form-select"  required [(ngModel)]="selectyear" [ngModelOptions]="{standalone: true}" aria-label="Default select example">
+            <option selected>เลือกปีการผลิต</option>
+            <option *ngFor="let y of yearid" [value]="y.yearCr">{{y.yearDesc}}</option>
+          </select>
+          <span class="input-group-text" id="inputGroup-sizing-default"></span>
+          <input type="text" class="form-control" [(ngModel)]="selectfm" [ngModelOptions]="{standalone: true}" aria-label="Sizing input" aria-describedby="inputGroup-sizing-default"
+            placeholder="ค้นหาเลขที่บัญชี">
+          <button (click)="getCpdataFarmer()" class="btn btn-outline-success" type="submit">ค้นหา</button>
+        </div>
+      </form>
     </div>
   </div>
   <div class="row">
@@ -60,7 +58,7 @@
                 </td>
               </ng-container>
 
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
           </section>

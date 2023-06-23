@@ -1,7 +1,6 @@
 import { PlotActivityComponent } from './plot-activity/plot-activity.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PlotActivityNextComponent } from './plot-activity/plot-activity-next/plot-activity-next.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MapComponent } from './map/map.component';
 import { PlotComponent } from './plot/plot.component';
@@ -16,12 +15,13 @@ import { ProductionWfoFormComponent } from './information-scf/production-wfo-for
 import { PromotionMoneyFormComponent } from './information-scf/promotion-money-form/promotion-money-form.component';
 import { PromotionMoneyDetailComponent } from './information-scf/promotion-money-detail/promotion-money-detail.component';
 import { ScqFormsComponent } from './sugarcane-cue-groups/scq-forms/scq-forms.component';
+import { PlotFormComponent } from './plot/plot-form/plot-form.component';
 const routes: Routes = [
   { path: '', component: DashboardComponent },
   { path: 'Plot', component: PlotComponent },
+  { path: 'PlotForm', component: PlotFormComponent },
   { path: 'Plot/:itid/:fmname', component: PlotDetailComponent },
-  { path: 'PlotActivity', component: PlotActivityComponent },
-  { path: 'PlotActivityNext', component: PlotActivityNextComponent },
+  { path: 'Plot/:itid', component: PlotActivityComponent },
   { path: 'SugarcaneCueGroups', component: ScqFormsComponent },
   { path: 'ScqDetails', component: ScqDetailsComponent },
   { path: 'Map', component: MapComponent },
