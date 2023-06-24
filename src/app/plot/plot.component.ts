@@ -7,14 +7,39 @@ import { MatSort } from '@angular/material/sort';
 import { NgForm } from '@angular/forms';
 
 
+
 @Component({
   selector: 'app-plot',
   templateUrl: './plot.component.html',
-  styleUrls: ['./plot.component.scss']
+  styleUrls: ['./plot.component.scss'],
+
 })
 export class PlotComponent implements AfterViewInit, OnInit {
 
-  labelPosition: 'before' | 'after' = 'after';
+  // 1
+  hardSoilBlastIntime?: any = '';
+  hardSoilBlastQuality?: any = '';
+  // 2
+  organicIntime?: any = '';
+  organicMethod?: any = '';
+  // 3
+  dolomiteIntime: 'not_in_time' | 'in_time' = 'in_time'
+  dolomiteMethod: 'machine' | 'person' = 'person'
+  // 4
+  chemical1Intime: 'not_in_time' | 'in_time' = 'in_time'
+  chemical1Method: 'car' | 'person' = 'person'
+  // 5
+  chemical2Intime: 'not_in_time' | 'in_time' = 'in_time'
+  chemical2Method: 'car' | 'person' = 'person'
+  // 6
+  rootingIntime: 'not_in_time' | 'in_time' = 'in_time'
+  rootingMethod: 'car' | 'person' = 'person'
+  // 7
+  chemical3Intime: 'not_in_time' | 'in_time' = 'in_time'
+  chemical3Method: 'car' | 'person' = 'person'
+
+  seasons: string[] = ['1', '2'];
+
   alldata?: any = [];
   // fmcode = "0000148033"
   cpfarmerData?: any = [];
@@ -22,6 +47,8 @@ export class PlotComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = ['intlandno', 'fmname', 'canetype', 'supzone', 'icon'];
   selectyear = '';
   selectfm = '';
+  supcode = '8042';
+  itid = "";
 
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
@@ -72,12 +99,16 @@ export class PlotComponent implements AfterViewInit, OnInit {
 
   }
 
+
+
   s_landno?: any = [];
   select_landno(plant:any) {
     console.log('element :', plant)
     //this.s_landno=this.alldata.filter((el:any) => el.itid == itid);
     this.s_landno=plant;
+    this.itid = this.s_landno.itid
     console.log('s_landno', this.s_landno)
+    console.log('itid', this.itid)
   }
 
   submit(search: NgForm) {
