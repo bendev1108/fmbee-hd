@@ -1,6 +1,8 @@
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA,ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -60,6 +62,7 @@ import { PlotFormComponent } from './plot/plot-form/plot-form.component';
     PromotionMoneyFormComponent,
     PromotionMoneyDetailComponent,
     PlotFormComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -68,9 +71,13 @@ import { PlotFormComponent } from './plot/plot-form/plot-form.component';
     MaterialModule,
     HttpClientModule,
     FormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    ReactiveFormsModule
 
 
   ],
+  exports: [MatDatepickerModule],
   providers: [ErrorHandler],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA]

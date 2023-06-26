@@ -1,11 +1,11 @@
+import { PathLocationStrategy } from '@angular/common';
 
 import { Component, AfterViewInit, OnInit, ViewChild } from '@angular/core';
 import { BrdsqlService } from '../service/brdsql.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { NgForm } from '@angular/forms';
-
+import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 
 
 @Component({
@@ -16,46 +16,32 @@ import { NgForm } from '@angular/forms';
 })
 export class PlotComponent implements AfterViewInit, OnInit {
 
-  // 1
-  hardSoilBlastIntime?: any = '';
-  hardSoilBlastQuality?: any = '';
-  // 2
-  organicIntime?: any = '';
-  organicMethod?: any = '';
-  // 3
-  dolomiteIntime: 'not_in_time' | 'in_time' = 'in_time'
-  dolomiteMethod: 'machine' | 'person' = 'person'
-  // 4
-  chemical1Intime: 'not_in_time' | 'in_time' = 'in_time'
-  chemical1Method: 'car' | 'person' = 'person'
-  // 5
-  chemical2Intime: 'not_in_time' | 'in_time' = 'in_time'
-  chemical2Method: 'car' | 'person' = 'person'
-  // 6
-  rootingIntime: 'not_in_time' | 'in_time' = 'in_time'
-  rootingMethod: 'car' | 'person' = 'person'
-  // 7
-  chemical3Intime: 'not_in_time' | 'in_time' = 'in_time'
-  chemical3Method: 'car' | 'person' = 'person'
-
-  seasons: string[] = ['1', '2'];
-
   alldata?: any = [];
-  // fmcode = "0000148033"
-  cpfarmerData?: any = [];
-  yearid?: any = [];
+  insertdata?: any = [];
+  // ข้อมูลแปลงอ้อยตามปีการผลิตและบัญชีชาวไร่
   displayedColumns: string[] = ['intlandno', 'fmname', 'canetype', 'supzone', 'icon'];
+  // รายละเอียดข้อมูลแปลงอ้อยตามปีการผลิตและบัญชีชาวไร่
+  displayedColumnsDetail: string[] = ['intlandno', 'fmname', 'canetype', 'supzone', 'dateAdd', 'dateUpdate', 'icon'];
+  // ข้อมูลแปลงอ้อย
+  cpfarmerData?: any = [];
+  // ข้อมูลปีการผลิต
+  yearid?: any = [];
+  //
   selectyear = '';
   selectfm = '';
+  //
   supcode = '8042';
   itid = "";
+
+  myForm: FormBuilder = new FormBuilder;
+
 
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
 
+  constructor(private brdsql: BrdsqlService,) {
 
-
-  constructor(private brdsql: BrdsqlService,) { }
+  }
 
   ngOnInit(): void {
     this.getYearsData()
@@ -74,7 +60,17 @@ export class PlotComponent implements AfterViewInit, OnInit {
     })
   }
 
-  // เรียกดูข้อมูลแปลงอ้อยตามปัการผลิตและบัญชีชาวไร่
+  s_landno?: any = [];
+  select_landno(plant: any) {
+    console.log('element :', plant)
+    //this.s_landno=this.alldata.filter((el:any) => el.itid == itid);
+    this.s_landno = plant;
+    this.itid = this.s_landno.itid
+    console.log('s_landno', this.s_landno)
+    console.log('itid', this.itid)
+  }
+
+  // เรียกดูข้อมูลแปลงอ้อยตามปีการผลิตและบัญชีชาวไร่
   async getCpdataFarmer() {
     this.alldata = []
     let year = this.selectyear;
@@ -98,33 +94,6 @@ export class PlotComponent implements AfterViewInit, OnInit {
     })
 
   }
-
-
-
-  s_landno?: any = [];
-  select_landno(plant:any) {
-    console.log('element :', plant)
-    //this.s_landno=this.alldata.filter((el:any) => el.itid == itid);
-    this.s_landno=plant;
-    this.itid = this.s_landno.itid
-    console.log('s_landno', this.s_landno)
-    console.log('itid', this.itid)
-  }
-
-  submit(search: NgForm) {
-    console.log(search.value);
-    console.log(search.valid);
-  }
-
-  submit1(f: any) {
-    console.log('Form value: ' ,f);
-  }
-
-  submitSave(save: NgForm) {
-    console.log(save.value);
-    console.log(save.valid);
-  }
-
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.alldata.filter = filterValue.trim().toLowerCase();;
@@ -133,16 +102,51 @@ export class PlotComponent implements AfterViewInit, OnInit {
     }
   }
 
+  // ข้อมูล Insert
+  async getInsertDataFarmer(f: any) {
+    await this.brdsql.insertFmActivity(f).subscribe({
+      next: (res: any) => {
+        let data = res.recordset
+
+      }, complete() {
+        // ถ้าสำเร็จ ตั้องการทำอะไร ใส่ไว้ตรงนี้
+      }, error(err) {
+        alert('เกิดความผิดพลาดในการเรียกข้อมูลจากเซริ์ฟเวอร์')
+      },
+    })
+
+  }
+
+
+  submit(search: NgForm) {
+    console.log(search.value);
+    console.log(search.valid);
+  }
+
+  // submit1(f: any) {
+  //   console.log('Form value: ' ,f);
+  // }
+
+  submitSave(save: NgForm) {
+    console.log('save.value', save.value);
+    console.log('save.valid', save.valid);
+
+    if (confirm('ต้องการบันทึกข้อมูล ' + '' + '  หรือไม่?')) {
+      this.getInsertDataFarmer(save.value);
+
+    }
+
+
+
+  }
+
+
   ngAfterViewInit(): void {
     const script = document.createElement('script');
     script.src = 'assets/dist/js/pages/plot.js';
     document.body.appendChild(script);
   }
 
+
 }
-
-
-
-
-
 

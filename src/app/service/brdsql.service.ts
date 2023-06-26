@@ -20,22 +20,22 @@ export class BrdsqlService {
   // yearsUrl = "https://asia-southeast2-brr-farmluck.cloudfunctions.net/dbcps/select_s_f_w?s=*&f=[CPS6263].[dbo].[yearID]&w=1=1 order by yearTh"
   // s=*&f=[CPS6263].[dbo].[yearID]&w=1=1 order by yearTh
 
-// เรียกดูข้อมูลปีการผลิต
-getYears(){
-  let url = this.baseSelectUrl
-    + "s=*&f=[CPS6263].[dbo].[yearID]&w=1=1 order by yearTh"
+  // เรียกดูข้อมูลปีการผลิต
+  getYears() {
+    let url = this.baseSelectUrl
+      + "s=*&f=[CPS6263].[dbo].[yearID]&w=1=1 order by yearTh"
     return this.http.get<any[]>(url)
-  // return this.http.get<Recordset[]>(this.yearsUrl);
-}
+    // return this.http.get<Recordset[]>(this.yearsUrl);
+  }
 
   // เรียกดูข้อมูลแปลงอ้อยตามปีการผลิตและบัญชีชาวไร่
-  getcpDataframer(year:string ,fmcode: string) {
+  getcpDataframer(year: string, fmcode: string) {
     let url = this.baseSelectUrl
-    + "s=*&f=[CPS6263].[dbo].[v_cp_data]&w=year='"+year+"' and fmcode='"+fmcode+"' order by intlandno"
+      + "s=*&f=[CPS6263].[dbo].[v_cp_data]&w=year='" + year + "' and fmcode='" + fmcode + "' order by intlandno"
     return this.http.get<any[]>(url)
   }
 
-  getDetail(itid: string): Observable<any[]>{
+  getDetail(itid: string): Observable<any[]> {
 
     const myparams = {
       'itid': itid.toString()
@@ -44,34 +44,74 @@ getYears(){
     return this.http.get<any[]>(this.baseSelectUrl, { params: myparams });
   }
 
-    // เพิ่มข้อมูล กิจกรรมแปลงผลผลิตสูง
-    insertFmActivity(f: any): Observable<any[]> {
-      let url = this.baseInsertUrl
-    +"t=[dbFarmluck_dev].[dbo].[activitiesFarmer]&"
-    + "c=itid,supcode,yieldTarget,yieldEstimate,"
-    + "hardSoilBast,hardSoilBlastPlan,hardSoilBlastDate,hardSoilBlastIntime,hardSoilBlastQuality,hardSoilBlastMethod,hardSoilBlastMore,"
-    + "organic,organicPlan,organicDate,organicIntime,organicRatio,organicMethod,organicMore,"
-    + "dolomite,dolomitePlan,dolomiteDate,dolomiteIntime,dolomiteRatio,dolomiteMethod,dolomiteMore,"
-    + "chemical1,chemical1Plan,chemical1Date,chemical1Intime,chemical1Ratio,chemical1Method,chemical1More,"
-    + "chemical2,chemical2Plan,chemical2Date,chemical2Intime,chemical2Ratio,chemical2Method,chemical2More,"
-    + "chemical3,chemical3Plan,chemical3Date,chemical3Intime,chemical3Ratio,chemical3Method,chemical3More,"
-    + "rooting,rootingPlan,rootingDate,rootingIntime,rootingMethod,rootingMore,plotMoreDesc&"
-    + "v=" + "'" + f.itid + "','" + f.supcode + "'," + f.yieldTarget + "," + f.yieldEstimate
-    + ",'" + f.hardSoilBast + "','" + f.hardSoilBlastPlan + "','" + f.hardSoilBlastDate + "','" + f.hardSoilBlastIntime
-    + "','" + f.pc_hardSoilBlastQuality + "','" + f.hardSoilBlastMethod + "','" + f.hardSoilBlastMore
-    + "','" + f.organic + "','" + f.organicPlan + "','" + f.organicDate + "','" + f.organicIntime + "',"
-    + f.organicRatio + ",'" + f.organicMethod + "','" + f.organicMore + "','"
-    + f.dolomite + "','" + f.dolomitePlan + "','" + f.dolomiteDate + "','" + f.dolomiteIntime + "',"
-    + f.dolomiteRatio + ",'" + f.dolomiteMethod + "','" + f.dolomiteMore + "','"
-    + f.chemical1 + "','" + f.chemical1Plan + "','" + f.chemical1Date + "','" + f.chemical1Intime + "',"
-    + f.chemical1Ratio + ",'" + f.chemical1Method + "','" + f.chemical1More + "','"
-    + f.chemical2 + "','" + f.chemical2Plan + "','" + f.chemical2Date + "','" + f.chemical2Intime + "',"
-    + f.chemical2Ratio + ",'" + f.chemical2Method + "','" + f.chemical2More + "','"
-    + f.chemical3 + "','" + f.chemical3Plan + "','" + f.chemical3Date + "','" + f.chemical3Intime + "',"
-    + f.chemical3Ratio + ",'" + f.chemical3Method + "','" + f.chemical3More + "','"
-    + f.rooting + "','" + f.rootingPlan + "','" + f.rootingDate + "','" + f.rootingIntime + "','"
-    + f.rootingMethod + "','" + f.rootingMore + "','" + f.plotMoreDesc + "'"
-      console.log('url ', url)
-      return this.http.get<any[]>(url);
-    }
+  // เพิ่มข้อมูล กิจกรรมแปลงผลผลิตสูง
+  insertFmActivity(f: any): Observable<any[]> {
+    let url = this.baseInsertUrl
+      + "t=[dbFarmluck_dev].[dbo].[activitiesFarmer]&"
+      + "c=itid,supcode,yieldTarget,yieldEstimate,"
+      + "hardSoilBlastPlan,hardSoilBlastDate,hardSoilBlastIntime,hardSoilBlastQuality,hardSoilBlastMethod,hardSoilBlastMore,"
+      + "organicPlan,organicDate,organicIntime,organicRatio,organicMethod,organicMore,"
+      + "dolomitePlan,dolomiteDate,dolomiteIntime,dolomiteRatio,dolomiteMethod,dolomiteMore,"
+      + "chemical1Plan,chemical1Date,chemical1Intime,chemical1Ratio,chemical1Method,chemical1More,"
+      + "chemical2Plan,chemical2Date,chemical2Intime,chemical2Ratio,chemical2Method,chemical2More,"
+      + "chemical3Plan,chemical3Date,chemical3Intime,chemical3Ratio,chemical3Method,chemical3More,"
+      + "rootingPlan,rootingDate,rootingIntime,rootingMethod,rootingMore,plotMoreDesc&"
+      + "v=" + "'"
+       + f.itid + "','" //id แปลงอ้อย
+       + f.supcode + "','"//รหัสผู้บันทึกข้อมูล
+       + f.yieldTarget + "','"//เป้าหมายผลผลิต ตัน/ไร่
+       + f.yieldEstimate + "','"//ผลผลิตประเมิน ตัน/ไร่
+
+       + f.hardSoilBlastPlan + "','"// วางแผนระเบิดดินดานวันที่
+       + f.hardSoilBlastDate + "','"//  ระเบิดดินดานแล้ววันที่
+       + f.hardSoilBlastIntime + "','"//การระเบิดดินดานทันเวลาหรือไม่
+       + f.hardSoilBlastQuality + "','"//การระเบิดดินดานมีคุณภาพหรือไม่
+       + f.hardSoilBlastMethod + "','"//วิธีการระเบิดดินดาน
+      + f.hardSoilBlastMore + "','"//เรื่องอื่นๆเกี่ยวกับการระเบิดดินดาน
+
+      + f.organicPlan + "','"//วางแผนใส่ปุ๋ยอินทรีย์วันที่
+      + f.organicDate + "','"//วันที่ใส่ปุ๋ยอินทรีย์
+      + f.organicIntime + "','"//ใส่ปุ๋ยอินทรีย์ทันเวลาหรือไม่
+      + f.organicRatio + "','"//อัตราปุ๋ยอินทรีย์ ตัน/ไร่
+      + f.organicMethod + "','"//วิธีการใส่ปุ๋ยอินทรีย์
+      + f.organicMore + "','"//เรื่องอื่นๆเกี่ยวกับการใส่ปุ๋ยอินทรีย์
+
+      + f.dolomitePlan + "','"//วางแผนใส่โดโลไมท์วันที่
+      + f.dolomiteDate + "','"//วันที่ใส่โดโลไมท์
+      + f.dolomiteIntime + "','"//ใส่โดโลไมท์ทันเวลาหรือไม่
+      + f.dolomiteRatio + "','"//อัตราโดโลไมท์ ตัน/ไร่
+      + f.dolomiteMethod + "','"//วิธีการใส่โดโลไมท์
+      + f.dolomiteMore + "','"//เรื่องอื่นๆเกี่ยวกับการใส่โดโลไมท์
+
+      + f.chemical1Plan + "','"//วางแผนใส่ ปุ๋ยเคมี1 วันที่
+       + f.chemical1Date + "','"//วันที่ใส่ เคมี1
+       + f.chemical1Intime + "','"//ใส่ ปุ๋ยเคมี1 ทันเวลาหรือไม่
+      + f.chemical1Ratio + "','"//อัตรา ปุ๋ยเคมี1 กก./ไร่
+      + f.chemical1Method + "','"//วิธีการใส่ ปุ๋ยเคมี1 คน รถ
+      + f.chemical1More + "','"//เรื่องอื่นๆเกี่ยวกับการใส ปุ๋ยเคมี1
+
+      + f.chemical2Plan + "','"//วางแผนใส่ ปุ๋ยเคมี2 วันที่
+      + f.chemical2Date + "','"//วันที่ใส่ เคมี2
+      + f.chemical2Intime + "','"//ใส่ ปุ๋ยเคมี2 ทันเวลาหรือไม่
+      + f.chemical2Ratio + "','"//อัตรา ปุ๋ยเคมี2 กก./ไร่
+      + f.chemical2Method + "','"//วิธีการใส่ ปุ๋ยเคมี2 คน รถ
+      + f.chemical2More + "','"//เรื่องอื่นๆเกี่ยวกับการใส ปุ๋ยเคมี2
+
+      + f.chemical3Plan + "','"//วางแผนใส่ ปุ๋ยเคมี3 วันที่
+      + f.chemical3Date + "','"//วันที่ใส่ เคมี3
+      + f.chemical3Intime + "','"//ใส่ ปุ๋ยเคมี3 ทันเวลาหรือไม่
+      + f.chemical3Ratio + "','"//อัตรา ปุ๋ยเคมี3 กก./ไร่
+      + f.chemical3Method + "','"//วิธีการใส่ ปุ๋ยเคมี3 คน รถ
+       + f.chemical3More + "','"//เรื่องอื่นๆเกี่ยวกับการใส ปุ๋ยเคมี3
+
+      + f.rootingPlan + "','"//วางแผน การพูนโคน วันที่
+      + f.rootingDate + "','"//วันที่ทำ การพูนโคน
+      + f.rootingIntime + "','"//การพูนโคน ทันเวลาหรือไม่
+      + f.rootingMethod + "','"//วิธีการพูนโคน คน รถ
+      + f.rootingMore + "','"//เรื่องอื่นๆเกี่ยวกับ การพูนโคน
+
+      + f.plotMoreDesc + "'"//รายละเอียดแปลงเพิ่มเติมต่างๆ
+    console.log('url ', url)
+    return this.http.get<any[]>(url);
+  }
 }

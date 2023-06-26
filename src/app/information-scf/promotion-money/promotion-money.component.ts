@@ -10,24 +10,28 @@ import { NgForm } from '@angular/forms';
   templateUrl: './promotion-money.component.html',
   styleUrls: ['./promotion-money.component.scss']
 })
-export class PromotionMoneyComponent implements AfterViewInit,OnInit{
+export class PromotionMoneyComponent implements AfterViewInit, OnInit {
 
-  submit(search:NgForm){
-     console.log(search.valid);
-     console.log(search.value);
-  }
-
-  alldata: any;
-  // fmcode = "0000148033"
-
-  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
-  @ViewChild(MatSort, { static: false }) sort!: MatSort;
 
   cpfarmerData?: any = [];
   yearid?: any = [];
 
   selectyear!: string;
-  selectfm!:string;
+  selectfm!: string;
+
+  alldata: any;
+  insertdata?: any = [];
+
+  displayedColumns: string[] = ['intlandno', 'fmname', 'canetype', 'landvalue', 'credit_amount', 'icon'];
+  displayedColumnsDetails: string[] = ['intlandno', 'fmname', 'canetype', 'landvalue', 'credit_amount', 'print', 'icon'];
+
+  itid = "";
+  s_landno?: any = [];
+
+
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+  @ViewChild(MatSort, { static: false }) sort!: MatSort;
+
 
   constructor(private brdsql: BrdsqlService,) { }
 
@@ -39,9 +43,9 @@ export class PromotionMoneyComponent implements AfterViewInit,OnInit{
   // เรียกดูข้อมูลปีการผลิต
   async getYearsData() {
     await this.brdsql.getYears().subscribe({
-      next: (year:any) => {
+      next: (year: any) => {
         this.yearid = year.recordset
-        console.log('res :' ,this.yearid)
+        console.log('res :', this.yearid)
       }
     })
   }
@@ -54,7 +58,7 @@ export class PromotionMoneyComponent implements AfterViewInit,OnInit{
       next: (res: any) => {
         let data = res.recordset
         this.alldata = new MatTableDataSource(data);
-        console.log('data',data);
+        console.log('data', data);
         this.paginator.length = data.length;
         this.paginator.pageSize = 10;
         this.alldata.sort = this.sort;
@@ -68,15 +72,42 @@ export class PromotionMoneyComponent implements AfterViewInit,OnInit{
     })
 
   }
-  displayedColumns: string[] = ['intlandno','fmname', 'canetype', 'landvalue', 'credit_amount', 'icon'];
 
-  applyFilter(event: Event){
+  applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.alldata.filter = filterValue.trim().toLowerCase();;
     if (this.alldata.paginator) {
       this.alldata.paginator.firstPage();
     }
   }
+
+
+  select_landno(plant: any) {
+    console.log('element :', plant)
+    //this.s_landno=this.alldata.filter((el:any) => el.itid == itid);
+    this.s_landno = plant;
+    this.itid = this.s_landno.itid
+    console.log('s_landno', this.s_landno)
+    console.log('itid', this.itid)
+  }
+    // ข้อมูล Insert
+    async getInsertDataFarmer() {
+      let as = 'เงินส่งเสริม'
+      if (confirm('ต้องการบันทึกข้อมูล ' + as + '  หรือไม่?')) {
+        console.log(as);
+
+      }
+    }
+
+  submit(search: NgForm) {
+    console.log(search.valid);
+    console.log(search.value);
+  }
+  submitSave(save: NgForm) {
+    console.log(save.value);
+    console.log(save.valid);
+  }
+
 
   ngAfterViewInit(): void {
     const script = document.createElement('script');
