@@ -2,7 +2,7 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <div class="content-wrapper p-3">
-
+  <!-- ฟอร์มค้นหาปีผลิตและเลขบัญชี -->
   <div class="d-flex">
     <div class="mr-auto p-2">
       <form #search="ngForm" (ngSubmit)="submit(search)">
@@ -22,7 +22,8 @@
     </div>
   </div>
 
-  <div class="table-responsive" >
+  <!-- ตารางข้อมูลชาวไร่ -->
+  <div class="table-responsive">
     <div class="mat-elevation-z8">
 
       <mat-form-field>
@@ -30,8 +31,8 @@
         <input matInput (keyup)="applyFilter($event)" #input>
       </mat-form-field>
 
-      <section class="example-container mat-elevation-z8" tabindex="0" >
-        <table mat-table [dataSource]="alldata" >
+      <section class="example-container mat-elevation-z8" tabindex="0">
+        <table mat-table [dataSource]="alldata">
 
           <!-- intlandno Column -->
           <ng-container matColumnDef="intlandno" sticky>
@@ -88,7 +89,8 @@
     </div>
 
   </div>
-  <!-- ฟอร์มบันทึกกิจกรรม -->
+
+  <!-- ฟอร์มขอเบิกปัจจัยการผลิต -->
   <div class="offcanvas offcanvas-end" id="demo">
 
     <div class="offcanvas-header">
@@ -126,7 +128,7 @@
         </div>
 
         <div class="table-responsive">
-          <table class="table">
+          <table class="table table-hover">
             <thead>
               <tr align="center">
                 <th scope="col">รายการสินค้า</th>
@@ -153,7 +155,7 @@
                 </td>
                 <td>
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="0" value="">
+                    <input matInput value="0">
                   </mat-form-field>
                 </td>
                 <td>
@@ -181,7 +183,7 @@
                 </td>
                 <td>
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="0" value="">
+                    <input matInput value="0">
                   </mat-form-field>
                 </td>
                 <td>
@@ -209,7 +211,7 @@
                 </td>
                 <td>
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="0" value="">
+                    <input matInput value="0">
                   </mat-form-field>
                 </td>
                 <td>
@@ -237,7 +239,7 @@
                 </td>
                 <td>
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="0" value="">
+                    <input matInput value="0">
                   </mat-form-field>
                 </td>
                 <td>
@@ -265,7 +267,7 @@
                 </td>
                 <td>
                   <mat-form-field class="example-full-width">
-                    <input matInput placeholder="0" value="">
+                    <input matInput value="0">
                   </mat-form-field>
                 </td>
                 <td>
@@ -288,6 +290,13 @@
             <div class="p-2" id="total"><span>รวมทั้งหมด : ...</span>
             </div>
           </div>
+          <div class="d-flex">
+            <div class="mr-auto p-2"></div>
+            <div class="p-2">
+              <!-- <button mat-raised-button color="accent" type="submit">บันทึก</button> -->
+              <button mat-raised-button color="accent" type="submit" (click)="getInsertDataFarmer()">บันทึก</button>
+            </div>
+          </div>
 
         </div>
       </form>
@@ -295,7 +304,7 @@
   </div>
 
   <hr>
-<!-- ฟอร์มรายละเอียด -->
+  <!-- ฟอร์มรายละเอียด -->
   <div class="table-responsive" align="center">
     <div class="mat-elevation-z8">
 

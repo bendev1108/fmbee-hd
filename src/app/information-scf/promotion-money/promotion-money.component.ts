@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { BrdsqlService } from 'src/app/service/brdsql.service';
 import { NgForm } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-promotion-money',
@@ -33,9 +34,10 @@ export class PromotionMoneyComponent implements AfterViewInit, OnInit {
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
 
 
-  constructor(private brdsql: BrdsqlService,) { }
+  constructor(private brdsql: BrdsqlService,private promotionTitle: Title) { }
 
   ngOnInit(): void {
+    this.promotionTitle.setTitle("ขอเบิกเงินส่งเสริม ปี 2566/67")
     this.getYearsData()
     // this.getCpdataFarmer()
 

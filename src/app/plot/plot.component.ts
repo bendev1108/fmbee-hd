@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -26,6 +27,8 @@ export class PlotComponent implements AfterViewInit, OnInit {
   cpfarmerData?: any = [];
   // ข้อมูลปีการผลิต
   yearid?: any = [];
+  //ข้อมูล Insert
+  dataInsert?: any = [];
   //
   selectyear = '';
   selectfm = '';
@@ -39,11 +42,12 @@ export class PlotComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
 
-  constructor(private brdsql: BrdsqlService,) {
+  constructor(private brdsql: BrdsqlService,private plotTitle: Title) {
 
   }
 
   ngOnInit(): void {
+    this.plotTitle.setTitle("กิจกรรมแปลงผลผลิตสูง ปี 2566/67")
     this.getYearsData()
     // this.getCpdataFarmer()
 
@@ -94,20 +98,33 @@ export class PlotComponent implements AfterViewInit, OnInit {
     })
 
   }
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.alldata.filter = filterValue.trim().toLowerCase();;
-    if (this.alldata.paginator) {
-      this.alldata.paginator.firstPage();
-    }
-  }
 
   // ข้อมูล Insert
   async getInsertDataFarmer(f: any) {
     await this.brdsql.insertFmActivity(f).subscribe({
       next: (res: any) => {
         let data = res.recordset
+      }, complete() {
+        // ถ้าสำเร็จ ตั้องการทำอะไร ใส่ไว้ตรงนี้
+      }, error(err) {
+        alert('เกิดความผิดพลาดในการเรียกข้อมูลจากเซริ์ฟเวอร์')
+      },
+    })
+  }
+   // เรียกดูข้อมูลปีการผลิต
+   async getDataFarmerInsert(f: any) {
+    await this.brdsql.insertFmActivity(f).subscribe({
+      next: (res: any) => {
+        this.dataInsert = res.recordset
+        // console.log('res :', this.yearid)
+        // this.insertdata = new MatTableDataSource(this.dataInsert);
+        // console.log('data', data);
+        // this.paginator.length = this.dataInsert.length;
+        // this.paginator.pageSize = 10;
+        // this.insertdata.sort = this.sort;
+        // this.insertdata.paginator = this.paginator;
 
+        //console.log('Data form server : ', data)
       }, complete() {
         // ถ้าสำเร็จ ตั้องการทำอะไร ใส่ไว้ตรงนี้
       }, error(err) {
@@ -115,7 +132,7 @@ export class PlotComponent implements AfterViewInit, OnInit {
       },
     })
 
-  }
+      }
 
 
   submit(search: NgForm) {
@@ -130,16 +147,10 @@ export class PlotComponent implements AfterViewInit, OnInit {
   submitSave(save: NgForm) {
     console.log('save.value', save.value);
     console.log('save.valid', save.valid);
-
     if (confirm('ต้องการบันทึกข้อมูล ' + '' + '  หรือไม่?')) {
       this.getInsertDataFarmer(save.value);
-
     }
-
-
-
   }
-
 
   ngAfterViewInit(): void {
     const script = document.createElement('script');

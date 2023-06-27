@@ -10,7 +10,7 @@ import { MatTableDataSource } from '@angular/material/table';
   templateUrl: './plot-detail.component.html',
   styleUrls: ['./plot-detail.component.scss']
 })
-export class PlotDetailComponent implements AfterViewInit, OnInit{
+export class PlotDetailComponent implements AfterViewInit, OnInit {
   alldata: any;
   // fmcode = "0000148033"
 
@@ -19,6 +19,10 @@ export class PlotDetailComponent implements AfterViewInit, OnInit{
 
   cpfarmerData?: any = [];
   yearid?: any = [];
+  //
+  supcode = '8042';
+  itid = "";
+
   displayedColumns: string[] = ['intlandno', 'supzone', 'route', 'fmname', 'canetype', 'SUPNAME', 'icon'];
 
   constructor(private brdsql: BrdsqlService,) { }
@@ -31,16 +35,16 @@ export class PlotDetailComponent implements AfterViewInit, OnInit{
   // เรียกดูข้อมูลปีการผลิต
   async getYearsData() {
     await this.brdsql.getYears().subscribe({
-      next: (year:any) => {
+      next: (year: any) => {
         this.yearid = year.recordset
-        console.log('res :' ,this.yearid)
+        console.log('res :', this.yearid)
 
       }
     })
   }
 
   // เรียกดูข้อมูลแปลงอ้อยตามปัการผลิตและบัญชีชาวไร่
-  async getCpdataFarmer(year:string ,fmcode:string) {
+  async getCpdataFarmer(year: string, fmcode: string) {
     // let year = "2324"
     // let fmcode = this.fmcode;
     await this.brdsql.getcpDataframer(year, fmcode).subscribe({
@@ -48,7 +52,7 @@ export class PlotDetailComponent implements AfterViewInit, OnInit{
         let data = res.recordset
 
         this.alldata = new MatTableDataSource(data);
-        console.log('data',data);
+        console.log('data', data);
         this.paginator.length = data.length;
         this.paginator.pageSize = 10;
         this.alldata.sort = this.sort;
@@ -62,7 +66,16 @@ export class PlotDetailComponent implements AfterViewInit, OnInit{
         alert('เกิดความผิดพลาดในการเรียกข้อมูลจากเซริ์ฟเวอร์')
       },
     })
+  }
 
+  s_landno?: any = [];
+  select_landno(plant: any) {
+    console.log('element :', plant)
+    //this.s_landno=this.alldata.filter((el:any) => el.itid == itid);
+    this.s_landno = plant;
+    this.itid = this.s_landno.itid
+    console.log('s_landno', this.s_landno)
+    console.log('itid', this.itid)
   }
 
   ngAfterViewInit(): void {

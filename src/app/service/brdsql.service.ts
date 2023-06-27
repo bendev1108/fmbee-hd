@@ -9,6 +9,7 @@ import { Brdsql } from './brdsql.module';
   providedIn: 'root'
 })
 export class BrdsqlService {
+  [x: string]: any;
 
   constructor(private http: HttpClient) { }
 
@@ -16,6 +17,8 @@ export class BrdsqlService {
   baseSelectUrl = "https://asia-southeast2-brr-farmluck.cloudfunctions.net/dbcps/select_s_f_w?"
   baseUpdateUrl = "https://asia-southeast2-brr-farmluck.cloudfunctions.net/dbcps/update_t_s_w?"
   baseInsertUrl = "https://asia-southeast2-brr-farmluck.cloudfunctions.net/dbcps/insert_t_c_v?"
+  baseLoginUrl = "https://asia-southeast2-brr-farmluck.cloudfunctions.net/dbcps/select_s_f_w?s=supcode,supname,username,zonedata,userlevel,tel,suppic_url&f=[dbCPS].[dbo].[users]&w=username='benjama' and password = '12345'"
+  // s=supcode,supname,username,zonedata,userlevel,tel,suppic_url&f=[dbCPS].[dbo].[users]&w=username='benjama' and password = '12345'
   // s=*&f=[CPS6263].[dbo].[v_cp_data]&w=year='2324' and fmcode='0000149888' order by intlandno
   // yearsUrl = "https://asia-southeast2-brr-farmluck.cloudfunctions.net/dbcps/select_s_f_w?s=*&f=[CPS6263].[dbo].[yearID]&w=1=1 order by yearTh"
   // s=*&f=[CPS6263].[dbo].[yearID]&w=1=1 order by yearTh
@@ -114,4 +117,41 @@ export class BrdsqlService {
     console.log('url ', url)
     return this.http.get<any[]>(url);
   }
+
+  login(loginForm: any): Observable<any> {
+    const myheaders = { 'Content-Type': 'application/json' };
+    const body = {
+      "grant_type": 'password',
+      "username": loginForm.email,
+      "password": loginForm.password,
+      "udience": 'https://dev-mfl5m1g0fzerb1bv.us.auth0.com/api/v2/',
+      "scope": 'openid',
+      "client_id": 'tTYwiAi3BI8VwamJmwaSCi63bIyQNVj7'
+    };
+
+    return this.http.post<any>(this.baseLoginUrl, body, { headers: myheaders });
+  }
+
+  // isLogin(): {
+  //   // const token = JSON.parse(localStorage.getItem('token'));
+  //   // if (token){
+  //   //   return true;
+  //   // }else{
+  //   //   return false;
+  //   // }
+  // }
+
+  // getProfile(): Observable<any>{
+  //   const token = JSON.parse(localStorage.getItem('token'));
+  //   const myheaders ={
+  //     'Authorization': 'Bearer '+ token.access_token
+  //   };
+
+  //    return this.http.get<any>(this.profileUrl, { headers: myheaders });
+  //  }
+
+  // logout(){
+  //   localStorage.removeItem('token');
+  //   // localStorage.removeItem('profile');
+  // }
 }

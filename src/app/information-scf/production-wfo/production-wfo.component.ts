@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -30,9 +31,10 @@ export class ProductionWfoComponent implements OnInit {
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
 
 
-  constructor(private brdsql: BrdsqlService,) { }
+  constructor(private brdsql: BrdsqlService,private productTitle: Title) { }
 
   ngOnInit(): void {
+    this.productTitle.setTitle("ขอเบิกปัจจัยการผลิต")
     this.getYearsData()
     // this.getCpdataFarmer()
   }

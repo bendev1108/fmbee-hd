@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Title } from '@angular/platform-browser';
 import { BrdsqlService } from '../service/brdsql.service';
 
 @Component({
@@ -29,9 +30,10 @@ export class MapComponent implements  OnInit,AfterViewInit{
   selectyear!:string;
   selectfm!:string;
 
-  constructor(private brdsql: BrdsqlService,) { }
+  constructor(private brdsql: BrdsqlService,private mapTitle: Title) { }
 
   ngOnInit(): void {
+    this.mapTitle.setTitle("แผนที่แปลงอ้อย")
     this.getYearsData()
     // this.getCpdataFarmer()
   }
