@@ -26,6 +26,7 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { MapDetailComponent } from './map/map-detail/map-detail.component';
 import { PromotionMoneyComponent } from './information-scf/promotion-money/promotion-money.component';
 import { ProductionWfoComponent } from './information-scf/production-wfo/production-wfo.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { ProductionWfoComponent } from './information-scf/production-wfo/product
     MapDetailComponent,
     PromotionMoneyComponent,
     ProductionWfoComponent,
+    LogoutComponent,
 
   ],
   imports: [

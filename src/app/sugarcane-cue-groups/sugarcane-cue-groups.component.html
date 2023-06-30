@@ -25,12 +25,6 @@
   <!-- ตารางข้อมูลชาวไร่ -->
   <div class="table-responsive mt-3">
     <div class="mat-elevation-z8">
-
-      <mat-form-field>
-        <mat-label>ค้นหา</mat-label>
-        <input matInput (keyup)="applyFilter($event)" #input>
-      </mat-form-field>
-
       <section class="example-container mat-elevation-z8" tabindex="0">
         <table mat-table [dataSource]="alldata">
 
@@ -56,7 +50,8 @@
           <ng-container matColumnDef="icon">
             <th mat-header-cell *matHeaderCellDef> บันทึก </th>
             <td mat-cell *matCellDef="let element">
-              <a onclick="showFormCreateBox()"> <span class="material-icons" id="border"> border_color</span></a>
+              <a data-bs-toggle="offcanvas" data-bs-target="#demo"> <span class="material-icons" id="border">
+                  border_color</span></a>
             </td>
           </ng-container>
 
@@ -66,6 +61,29 @@
       </section>
       <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
     </div>
+
+    <!-- Offcanvas Sidebar -->
+    <div class="offcanvas offcanvas-top" id="demo">
+      <div class="offcanvas-header">
+        <h1 class="offcanvas-title">แบบฟอร์มการจัดกลุ่มคิวอ้อย</h1>
+      </div>
+      <div class="offcanvas-body">
+        <select class="form-select" aria-label="Default select example">
+          <option selected>เลือกกลุ่ม</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+        <div class="d-flex">
+          <div class="mr-auto p-2"></div>
+          <div class="p-2">
+            <!-- <button mat-raised-button color="accent" type="submit">บันทึก</button> -->
+            <button mat-raised-button color="accent" type="submit">บันทึก</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
     <hr>
     <!-- ฟอร์มรายละเอียด -->

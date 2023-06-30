@@ -11,6 +11,7 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./plot-detail.component.scss']
 })
 export class PlotDetailComponent implements AfterViewInit, OnInit {
+  plotActive: any = [];
   alldata: any;
   // fmcode = "0000148033"
 
@@ -50,15 +51,12 @@ export class PlotDetailComponent implements AfterViewInit, OnInit {
     await this.brdsql.getcpDataframer(year, fmcode).subscribe({
       next: (res: any) => {
         let data = res.recordset
-
         this.alldata = new MatTableDataSource(data);
         console.log('data', data);
         this.paginator.length = data.length;
         this.paginator.pageSize = 10;
         this.alldata.sort = this.sort;
         this.alldata.paginator = this.paginator;
-
-
         //console.log('Data form server : ', data)
       }, complete() {
         // ถ้าสำเร็จ ตั้องการทำอะไร ใส่ไว้ตรงนี้
@@ -77,6 +75,17 @@ export class PlotDetailComponent implements AfterViewInit, OnInit {
     console.log('s_landno', this.s_landno)
     console.log('itid', this.itid)
   }
+
+    // เรียกดูข้อมูลปีการผลิต
+    async getActiveData(f: any) {
+      await this.brdsql.insertFmActivity(f).subscribe({
+        next: (active: any) => {
+          this.plotActive = active.recordset
+          // console.log('res :', this.yearid)
+
+        }
+      })
+    }
 
   ngAfterViewInit(): void {
     const script = document.createElement('script');

@@ -10,14 +10,18 @@ import { MapDetailComponent } from './map/map-detail/map-detail.component';
 import { ProductionWfoComponent } from './information-scf/production-wfo/production-wfo.component';
 import { PromotionMoneyComponent } from './information-scf/promotion-money/promotion-money.component';
 import { SugarcaneCueGroupsComponent } from './sugarcane-cue-groups/sugarcane-cue-groups.component';
+import { PlotDetailComponent } from './plot/plot-detail/plot-detail.component';
+import { LogoutComponent } from './logout/logout.component';
 const routes: Routes = [
-  { path: '', component: DashboardComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: 'Dashboard', component: DashboardComponent },
   { path: 'Plot', component: PlotComponent },
-  { path: 'Plot/:itid/:fmname', component: PlotComponent},
+  { path: 'Plot/:itid/:fmname', component: PlotDetailComponent },
   { path: 'SugarcaneCueGroups', component: SugarcaneCueGroupsComponent },
   { path: 'Map', component: MapComponent },
   { path: 'MapDetail', component: MapDetailComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'logout', component: LogoutComponent },
   { path: 'Withdraw factors of production', component: ProductionWfoComponent },
   { path: 'Promotion money', component: PromotionMoneyComponent },
   { path: '**', component: PagenotfoundComponent }

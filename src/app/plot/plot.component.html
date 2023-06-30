@@ -18,58 +18,239 @@
             aria-label="Sizing input" aria-describedby="inputGroup-sizing-default" placeholder="ค้นหาเลขที่บัญชี">
 
           <button (click)="getCpdataFarmer()" class="btn btn-outline-success" type="submit">ค้นหา</button>
+          <p style="margin-left: 1rem;">0000178895</p>
         </div>
         <!-- <p>{{selectyear}} {{selectfm}} </p> -->
       </form>
     </div>
   </div>
   <!-- ตารางข้อมูลชาวไร่ -->
+
   <div class="table-responsive">
-    <div class="mat-elevation-z8">
-      <section class="example-container mat-elevation-z8" tabindex="0">
-        <table mat-table [dataSource]="alldata">
+    <section class="example-container mat-elevation-z8" tabindex="0">
+      <table mat-table [dataSource]="alldata">
 
-          <!-- intlandno Column -->
-          <ng-container matColumnDef="intlandno" sticky>
-            <th mat-header-cell *matHeaderCellDef> หมายเลขแปลง </th>
-            <td mat-cell *matCellDef="let element"> {{element.intlandno}} </td>
-          </ng-container>
+        <!-- intlandno Column -->
+        <ng-container matColumnDef="intlandno" sticky>
+          <th mat-header-cell *matHeaderCellDef> หมายเลขแปลง </th>
+          <td mat-cell *matCellDef="let element"> {{element.intlandno}} </td>
+        </ng-container>
 
-          <!-- fmname Column -->
-          <ng-container matColumnDef="fmname">
-            <th mat-header-cell *matHeaderCellDef> ชื่อ-สกุล </th>
-            <td mat-cell *matCellDef="let element"> {{element.fmname}} </td>
-          </ng-container>
+        <!-- fmname Column -->
+        <ng-container matColumnDef="fmname">
+          <th mat-header-cell *matHeaderCellDef> ชื่อ-สกุล </th>
+          <td mat-cell *matCellDef="let element"> {{element.fmname}} </td>
+        </ng-container>
 
-          <!-- canetype Column -->
-          <ng-container matColumnDef="canetype">
-            <th mat-header-cell *matHeaderCellDef> ประเภทอ้อย </th>
-            <td mat-cell *matCellDef="let element"> {{element.canetype}} </td>
-          </ng-container>
+        <!-- canetype Column -->
+        <ng-container matColumnDef="canetype">
+          <th mat-header-cell *matHeaderCellDef> ประเภทอ้อย </th>
+          <td mat-cell *matCellDef="let element"> {{element.canetype}} </td>
+        </ng-container>
 
-          <!-- supzone Column -->
-          <ng-container matColumnDef="supzone">
-            <th mat-header-cell *matHeaderCellDef> โซน </th>
-            <td mat-cell *matCellDef="let element"> {{element.supzone}} </td>
-          </ng-container>
+        <!-- supzone Column -->
+        <ng-container matColumnDef="supzone">
+          <th mat-header-cell *matHeaderCellDef> โซน </th>
+          <td mat-cell *matCellDef="let element"> {{element.supzone}} </td>
+        </ng-container>
 
-          <!-- icon Column -->
-          <ng-container matColumnDef="icon">
-            <th mat-header-cell *matHeaderCellDef> บันทึก </th>
-            <td mat-cell *matCellDef="let element">
-              <a data-bs-toggle="offcanvas" data-bs-target="#demo" (click)="select_landno(element);"> <span
-                  class="material-icons" id="border">
-                  border_color</span></a>
-            </td>
-          </ng-container>
+        <!-- icon Column -->
+        <ng-container matColumnDef="icon">
+          <th mat-header-cell *matHeaderCellDef> การจัดการ </th>
+          <td mat-cell *matCellDef="let element">
+            <a matTooltip="แก้ไขข้อมูล" aria-label="Button that displays a tooltip when focused or hovered over"
+              data-bs-toggle="offcanvas" data-bs-target="#demo" (click)="select_landno(element);"> <span
+                class="material-icons" id="border">
+                border_color</span></a>
+            <a matTooltip="แสดงข้อมูลเพิ่มเติม" aria-label="Button that displays a tooltip when focused or hovered over"
+              data-bs-toggle="offcanvas" data-bs-target="#demoDetailFarmer" (click)="select_landno(element);"> <span
+                class="material-icons" id="folder">
+                folder</span></a>
+          </td>
+        </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-      </section>
-      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </section>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+  </div>
+
+  <!-- ฟอร์มข้อมูลชาวไร่ -->
+  <div class="offcanvas offcanvas-end" id="demoDetailFarmer">
+
+    <div class="offcanvas-header" *ngIf="s_landno">
+      <h1 class="offcanvas-title"><span>ข้อมูลชาวไร่ : {{ s_landno.fmname }}</span></h1>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+      <table class="table table-hover table-responsive" id="DetailFarmer">
+        <thead align="center">
+          <tr>
+            <th>#</th>
+            <th>รายละเอียด</th>
+            <th>#</th>
+            <th>รายละเอียด</th>
+            <th>#</th>
+            <th>รายละเอียด</th>
+            <th>#</th>
+            <th>รายละเอียด</th>
+            <th>#</th>
+            <th>รายละเอียด</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="s_landno" align="center">
+          <tr>
+            <td>เลขที่บัญชี</td>
+            <td>{{s_landno.fmcode}}</td>
+            <td>ปลูกเสร็จ</td>
+            <td>{{s_landno.growed1}}</td>
+            <td>ธาตุอาหารรอง</td>
+            <td>{{s_landno.Micronutrients}}</td>
+            <td>ปริมาณปุ๋ยเคมีงวด1</td>
+            <td>{{s_landno.AmountFertilizerRound}}</td>
+            <td>ระเบิดดินดานงวด1</td>
+            <td>{{s_landno.gethardSoilBlast1}}</td>
+          </tr>
+          <tr>
+            <td>หมายเลขแปลง</td>
+            <td>{{s_landno.intlandno}}</td>
+            <td>อายุอ้อย</td>
+            <td>{{s_landno.caneage}}</td>
+            <td>[NPK ในดิน]</td>
+            <td>{{s_landno.NPKSoil}}</td>
+            <td>วันที่ใส่ปุ๋ยเคมีงวด1</td>
+            <td>{{s_landno.FertilizerRoundDate}}</td>
+            <td>ระเบิดดินดานงวด2</td>
+            <td>{{s_landno.gethardSoilBlast2}}</td>
+          </tr>
+          <tr>
+            <td>ประเภทอ้อย</td>
+            <td>{{s_landno.canetype}}</td>
+            <td>ระยะร่อง</td>
+            <td>{{s_landno.Groove}}</td>
+            <td>[ค่า OM]</td>
+            <td>{{s_landno.DepthSoil}}</td>
+            <td>การให้ปุ๋ยน้ำทางใบ</td>
+            <td>{{s_landno.FoliarFertilizer}}</td>
+            <td>วัชพืชงวด1</td>
+            <td>{{s_landno.getWeed1}}</td>
+          </tr>
+          <tr>
+            <td>ชื่อประเภทอ้อย</td>
+            <td>{{s_landno.canename}}</td>
+            <td>กลุ่มตัด</td>
+            <td>{{s_landno.groupCode}}</td>
+            <td>ความลาดเอียงของพื้นที่</td>
+            <td>{{s_landno.DiseaseBasic}}</td>
+            <td>ปริมาณปุ๋ยน้ำงวด1</td>
+            <td>{{s_landno.AmountFoliarFertilizer}}</td>
+            <td>ปริมาณปุ๋ยเคมีงวด2</td>
+            <td>{{s_landno.AmountFertilizerRound2}}</td>
+          </tr>
+          <tr>
+            <td>พื้นที่ปลูก</td>
+            <td>{{s_landno.landvalue}}</td>
+            <td>หัวหน้ากลุ่มตัด</td>
+            <td></td>
+            <td>วัชพืชดั้งเดิม</td>
+            <td>{{s_landno.WeedBasic}}</td>
+            <td>ปริมาณปุ๋ยอินทรีย์</td>
+            <td>{{s_landno.AmountNaturalFertilizer}}</td>
+            <td>วันที่ใส่ปุ๋ยเคมีงวด2</td>
+            <td>{{s_landno.FertilizerRoundDate2}}</td>
+          </tr>
+          <tr>
+            <td>นอส.</td>
+            <td>{{s_landno.supcode}}</td>
+            <td>กลุ่มบำรุง</td>
+            <td>{{s_landno.groupCode_m}}</td>
+            <td>โรคอ้อยดั้งเดิม</td>
+            <td>{{s_landno.Slope}}</td>
+            <td>ปริมาณน้ำงวด1</td>
+            <td>{{s_landno.AmountWatering}}</td>
+            <td>ปริมาณน้ำงวด2</td>
+            <td>{{s_landno.AmountWatering2}}</td>
+          </tr>
+          <tr>
+            <td>โซน</td>
+            <td>{{s_landno.supzone}}</td>
+            <td>หัวหน้ากลุ่มบำรุง</td>
+            <td></td>
+            <td>ความลึกหน้าดิน</td>
+            <td>{{s_landno.OM}}</td>
+            <td>เปอร์เซ็นการงอกงวด1</td>
+            <td>{{s_landno.GerminationPercent}}</td>
+            <td>การให้ปุ๋ยน้ำทางใบงวด2</td>
+            <td>{{s_landno.FoliarFertilizer2}}</td>
+          </tr>
+          <tr>
+            <td>ส่วน</td>
+            <td>{{s_landno.Partcode}}</td>
+            <td>งวด</td>
+            <td>{{s_landno.Period}}</td>
+            <td>pH</td>
+            <td>{{s_landno.SoilPH}}</td>
+            <td>ซ่อมอ้อยงวด1</td>
+            <td>{{s_landno.getRepairingCane1}}</td>
+            <td>ปริมาณปุ๋ยน้ำงวด2</td>
+            <td>{{s_landno.AmountFoliarFertilizer2}}</td>
+          </tr>
+          <tr>
+            <td>รูท</td>
+            <td>{{s_landno.route}}</td>
+            <td>ชื่อพันธุ์</td>
+            <td>{{s_landno.seedname}}</td>
+            <td>ใส่โดโลไม</td>
+            <td>{{s_landno.getDolomite}}</td>
+            <td>การฉีดยาคุมงวด1</td>
+            <td>{{s_landno.getInjectableContraceptive}}</td>
+            <td>เปอร์เซ็นการงอกงวด2</td>
+            <td>{{s_landno.GerminationPercent2}}</td>
+          </tr>
+          <tr>
+            <td>สถานะแปลง</td>
+            <td>{{s_landno.plotdesc}}</td>
+            <td>เป้าหมายร่วมกับชาวไร่</td>
+            <td>{{s_landno.TargetProductByFarmer}}</td>
+            <td>ปริมาณโดโลไม</td>
+            <td>{{s_landno.AmountDolomite}}</td>
+            <td>วันที่ใส่ปุ๋ยอินทรีย์</td>
+            <td>{{s_landno.NaturalFertilizerDate}}</td>
+            <td>การฉีดยาคุมงวด2</td>
+            <td>{{s_landno.getInjectableContraceptive2}}</td>
+          </tr>
+          <tr>
+            <td>วันที่ปลูก</td>
+            <td>{{s_landno.PlantDate}}</td>
+            <td>ความสะดวกการเดินทาง</td>
+            <td>{{s_landno.TheEaseOfTransportation}}</td>
+            <td>วันที่ใส่โดโลไมต์</td>
+            <td>{{s_landno.DolomiteDate}}</td>
+            <td>การไว้ใบ</td>
+            <td>{{s_landno.getPreservationLeaf}}</td>
+            <td>ซ่อมอ้อยงวด2</td>
+            <td>{{s_landno.getRepairingCane2}}</td>
+          </tr>
+          <tr>
+            <td>วัชพืชงวด2</td>
+            <td>{{s_landno.getWeed2}}</td>
+            <td>การให้ปุ๋ยน้ำทางใบงวด3</td>
+            <td>{{s_landno.FoliarFertilizer3}}</td>
+            <td>ปริมาณปุ๋ยน้ำงวด3</td>
+            <td>{{s_landno.AmountFoliarFertilizer3}}</td>
+            <td>ปริมาณน้ำงวด3</td>
+            <td>{{s_landno.AmountWatering3}}</td>
+            <td>ปริมาณปุ๋ยเคมีงวด3</td>
+            <td>{{s_landno.AmountFertilizerRound3}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+
     </div>
   </div>
+
 
   <!-- ฟอร์มบันทึกกิจกรรมแปลงผลผลิตสูง ปี 2566/67 -->
 
@@ -106,29 +287,31 @@
 
         <!-- ฟอร์มบันทึกกิจกรรม -->
         <form class="needs-validation" #save="ngForm" novalidate (ngSubmit)="submitSave(save)" id="myForm">
-          <!-- Value: {{ myFormInsert.value | json }} -->
-          <!-- <span>รหัสผู้บันทึกข้อมูล : {{supcode}}</span>-->
+
           <div class="row">
-            <div class="col-md-6" *ngIf="s_landno">
+            <div class="col-md-4" *ngIf="s_landno">
               <!-- id แปลงอ้อย -->
-              <mat-form-field class="example-full-width" id="supcode" >
+              <mat-form-field class="example-full-width" id="supcode">
                 <mat-label>id แปลงอ้อย</mat-label>
                 <input matInput id="itid" #itid="ngModel" ngModel name="itid" value="{{ s_landno.itid}}">
               </mat-form-field>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
+              <!-- ชื่อเรียกแปลงอ้อย -->
+              <mat-form-field class="example-full-width" id="plotName">
+                <mat-label>ชื่อเรียกแปลงอ้อย</mat-label>
+                <input matInput id="plotName" #plotName="ngModel" ngModel name="plotName" type="text"
+                  value="{{plotName}}">
+              </mat-form-field>
+            </div>
+            <div class="col-md-4">
               <!-- รหัสผู้บันทึกข้อมูล -->
               <mat-form-field class="example-full-width" id="supcode">
                 <mat-label>รหัสผู้บันทึกข้อมูล</mat-label>
-                <input matInput id="supcode" #supcode="ngModel" ngModel name="supcode" type="number"
-                  value="{{supcode}}">
+                <input matInput id="supcode" #supcode="ngModel" ngModel name="supcode" type="text" value="{{supcode}}">
               </mat-form-field>
             </div>
           </div>
-          <!-- id แปลงอ้อย -->
-          <!-- <input matInput id="itid" #itid="ngModel" ngModel name="itid" type="text" value="{{itid}}"> -->
-          <!-- รหัสผู้บันทึกข้อมูล -->
-          <!-- <input matInput id="supcode" #supcode="ngModel" ngModel name="supcode" type="text" value="{{supcode}}"> -->
 
           <div class="row">
             <!-- ผลผลิตประเมิน ตัน/ไร่ -->
@@ -634,12 +817,39 @@
   </div>
 
   <hr>
-  <!-- ฟอร์มไปหน้ารายละเอียด -->
+
+  <!-- ฟอร์มรายละเอียด -->
   <form>
+
+    <!-- ฟอร์มค้นหาปีผลิตและเลขบัญชี -->
+    <!-- <div class="d-flex">
+      <div class="mr-auto p-2">
+        <form #ShowData="ngForm" >
+          <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-default"></span>
+          <input type="text" class="form-control" [(ngModel)]="selectfm" [ngModelOptions]="{standalone: true}"
+            aria-label="Sizing input" aria-describedby="inputGroup-sizing-default" placeholder="ค้นหาเลขที่บัญชี">
+            <button (click)="getDataFarmerInsert()" class="btn btn-outline-success" type="submit">ค้นหา</button>
+          </div>
+        </form>
+      </div>
+    </div> -->
+
+    <!-- <mat-form-field>
+      <mat-label>ค้นหาข้อมูลบันทึก</mat-label>
+      <input matInput (keyup)="applyFilter($event)" #input>
+    </mat-form-field> -->
+
     <div class="table-responsive">
 
       <section class="example-container mat-elevation-z8" tabindex="0">
-        <table mat-table [dataSource]="insertdata">
+        <table mat-table [dataSource]="alldata">
+
+          <!-- dateUpdate Column -->
+          <ng-container matColumnDef="dateUpdate">
+            <th mat-header-cell *matHeaderCellDef> วันที่อัพเดตข้อมูล </th>
+            <td mat-cell *matCellDef="let element"> {{element.dateUpdate}} </td>
+          </ng-container>
 
           <!-- intlandno Column -->
           <ng-container matColumnDef="intlandno" sticky>
@@ -659,31 +869,40 @@
             <td mat-cell *matCellDef="let element"> {{element.canetype}} </td>
           </ng-container>
 
+          <!-- landvalue Column -->
+          <ng-container matColumnDef="landvalue">
+            <th mat-header-cell *matHeaderCellDef> พื้นที่ปลูก </th>
+            <td mat-cell *matCellDef="let element"> {{element.landvalue}} </td>
+          </ng-container>
+
           <!-- supzone Column -->
           <ng-container matColumnDef="supzone">
             <th mat-header-cell *matHeaderCellDef> โซน </th>
             <td mat-cell *matCellDef="let element"> {{element.supzone}} </td>
           </ng-container>
 
-          <!-- dateAdd Column -->
-          <ng-container matColumnDef="dateAdd">
-            <th mat-header-cell *matHeaderCellDef> วันที่เพิ่มข้อมูล </th>
-            <td mat-cell *matCellDef="let element"> {{element.dateAdd}} </td>
-          </ng-container>
-
-          <!-- dateUpdate Column -->
-          <ng-container matColumnDef="dateUpdate">
-            <th mat-header-cell *matHeaderCellDef> วันที่อัพเดตข้อมูล </th>
-            <td mat-cell *matCellDef="let element"> {{element.dateUpdate}} </td>
+          <!-- route Column -->
+          <ng-container matColumnDef="route">
+            <th mat-header-cell *matHeaderCellDef> รูท </th>
+            <td mat-cell *matCellDef="let element"> {{element.route}} </td>
           </ng-container>
 
           <!-- icon Column -->
           <ng-container matColumnDef="icon">
-            <th mat-header-cell *matHeaderCellDef> รายละเอียด </th>
+            <th mat-header-cell *matHeaderCellDef> การจัดการ </th>
             <td mat-cell *matCellDef="let element">
-              <a data-bs-toggle="offcanvas" data-bs-target="#demo"
-                [routerLink]="['/Plot', element.itid, element.fmname]"> <span class="material-icons" id="folder">
+              <a matTooltip="ข้อมูลเพิ่มเติม" aria-label="Button that displays a tooltip when focused or hovered over"
+                data-bs-toggle="offcanvas" data-bs-target="#demoDetailActivity"> <span class="material-icons"
+                  id="folder">
                   folder</span></a>
+
+              <a matTooltip="แก้ไขข้อมูล" aria-label="Button that displays a tooltip when focused or hovered over"
+                (click)="select_landno(element)"> <span class="material-icons" id="border">
+                  border_color </span></a>
+
+              <a matTooltip="ลบข้อมูล" aria-label="Button that displays a tooltip when focused or hovered over"
+                onclick="getDelete(itid)"> <span class="material-icons" id="delete">
+                  delete</span></a>
             </td>
           </ng-container>
 
@@ -695,1091 +914,169 @@
     </div>
   </form>
 
-  <!-- ฟอร์มรายละเอียด -->
+  <!-- ฟอร์มข้อมูลกิจกรรมรายแปลง -->
+  <div class="offcanvas offcanvas-end" id="demoDetailActivity">
 
-  <div class="offcanvas offcanvas-end" id="demo">
-
-    <div class="offcanvas-header">
-      <h1 class="offcanvas-title"><span>รายละเอียดรายงานการตรวจกิจกรรมแปลงผลผลิตสูง ปี 2566/67</span></h1>
+    <div class="offcanvas-header" *ngIf="s_landno">
+      <h1 class="offcanvas-title"><span>ข้อมูลกิจกรรมแปลง : {{ s_landno.fmname }}</span></h1>
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
     </div>
     <div class="offcanvas-body">
-      <div id="print">
-        <a routerLink="#"><button mat-raised-button color="warn"><i
-              class="fa-solid fa-print fa-lg"></i><span>ปริ้นแบบฟอร์ม</span></button></a>
-      </div>
-      <div *ngIf="s_landno">
-        <div class="row">
-          <div class="col-md-4">
-            <span>ชื่อ-สกุลชาวไร่ : {{ s_landno.fmname }} </span>
-          </div>
-          <div class="col-md-4">
-            <span>เลขที่บัญชี : {{ s_landno.fmcode }}</span>
-          </div>
-          <div class="col-md-4">
-            <span>หมายเลขแปลง : {{ s_landno.intlandno }} </span>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4">
-            <span>วันที่ปลูก : {{ s_landno.PlantDateTH }} </span>
-          </div>
-          <div class="col-md-4">
-            <span>อายุอ้อย : {{ s_landno.caneage }} วัน</span>
-          </div>
-          <div class="col-md-4">
-            <span>ประเภทอ้อย : {{ s_landno.CaneTypeName }} </span>
-          </div>
-        </div>
-      </div>
-      <!-- ฟอร์มบันทึกกิจกรรม -->
-      <form class="needs-validation" #detail="ngForm">
-
-        <!-- id แปลงอ้อย -->
-        <input matInput id="itid" #itid="ngModel" ngModel name="itid" type="text" value="{{itid}}">
-        <!-- รหัสผู้บันทึกข้อมูล -->
-        <input matInput id="supcode" #supcode="ngModel" ngModel name="supcode" type="text" value="{{supcode}}">
-
-        <div class="row">
-          <!-- ผลผลิตประเมิน ตัน/ไร่ -->
-          <div class="col-md-4">
-            <mat-form-field class="example-full-width">
-              <mat-label>ประเมิน*</mat-label>
-              <input matInput type="text">
-            </mat-form-field>
-          </div>
-          <div class="col-md-4">
-            <!-- เป้าหมายผลผลิต ตัน/ไร่ -->
-            <mat-form-field class="example-full-width">
-              <mat-label>เป้าหมาย</mat-label>
-              <input matInput type="text">
-            </mat-form-field>
-          </div>
-          <!-- รายละเอียดแปลงเพิ่มเติมต่างๆ  -->
-          <div class="col-md-4">
-            <mat-form-field class="example-full-width">
-              <mat-label>รายละเอียด</mat-label>
-              <input matInput type="text">
-            </mat-form-field>
-          </div>
-        </div>
-
-        <div class="table-responsive">
-          <table class="table  table-hover">
-            <thead align="center">
-              <tr>
-                <th scope="col">กิจกรรมเพิ่มผลผลิต</th>
-                <th scope="col">วางแผนที่จะทำ</th>
-                <th scope="col">วันที่ทำจริง</th>
-                <th scope="col">ทันเวลา</th>
-                <th scope="col">คุณภาพ</th>
-                <th scope="col">วิธีการทำ</th>
-                <th scope="col">อื่น ๆ</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  1.การระเบิดดินดาน (ภายในอายุ 30 วัน)
-                </td>
-                <!--วางแผนระเบิดดินดานวันที่-->
-                <td>
-                  <mat-form-field class="field">
-                    <mat-label id="label">ปี-เดือน-วัน</mat-label>
-                    <input matInput [ngClass]="{ 'is-invalid': hardSoilBlastPlan.invalid}" #hardSoilBlastPlan="ngModel"
-                      ngModel name="hardSoilBlastPlan" type="text"
-                      pattern="\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$">
-                    <div class="invalid-feedback">
-                      <span *ngIf="hardSoilBlastPlan.hasError('pattern')">รูปแบบวันที่ไม่ถูกต้อง</span>
-                    </div>
-                  </mat-form-field>
-                </td>
-                <!-- ระเบิดดินดานแล้ววันที่ -->
-                <td>
-                  <mat-form-field class="field">
-                    <mat-label id="label">ปี-เดือน-วัน</mat-label>
-                    <input matInput [ngClass]="{ 'is-invalid': hardSoilBlastDate.invalid}" #hardSoilBlastDate="ngModel"
-                      ngModel name="hardSoilBlastDate" type="text">
-                    <!-- <div class="invalid-feedback">
-                <span *ngIf="hardSoilBlastPlan.hasError('pattern')">รูปแบบวันที่ไม่ถูกต้อง</span>
-              </div> -->
-                  </mat-form-field>
-                </td>
-                <!-- การระเบิดดินดานทันเวลาหรือไม่ -->
-                <td>
-                  <mat-radio-group aria-labelledby="example-radio-group-label" class="hardSoilBlastIntime"
-                    #hardSoilBlastIntime="ngModel" ngModel name="hardSoilBlastIntime">
-                    <mat-radio-button value="1">ทันเวลา</mat-radio-button><br>
-                    <mat-radio-button value="2">ไม่ทันเวลา</mat-radio-button>
-                  </mat-radio-group>
-                </td>
-                <!-- การระเบิดดินดานมีคุณภาพหรือไม่ -->
-                <td>
-                  <mat-radio-group aria-labelledby="example-radio-group-label" class="hardSoilBlastQuality"
-                    #hardSoilBlastQuality="ngModel" ngModel name="hardSoilBlastQuality">
-                    <mat-radio-button value="1">ผ่านความลึก</mat-radio-button><br>
-                    <mat-radio-button value="2">ไม่ผ่านความลึก</mat-radio-button>
-                  </mat-radio-group>
-                </td>
-                <!-- วิธีการระเบิดดินดาน -->
-                <td>
-                  <mat-form-field class="field">
-                    <mat-label id="label">วิธีการทำ</mat-label>
-                    <input matInput #hardSoilBlastMethod="ngModel" ngModel name="hardSoilBlastMethod" type="text">
-                    <div class="invalid-feedback">
-                      <span>กรุณากรอกวิธีการทำ</span>
-                    </div>
-                  </mat-form-field>
-                </td>
-                <!-- เรื่องอื่นๆเกี่ยวกับการระเบิดดินดาน -->
-                <td>
-                  <mat-form-field class="field">
-                    <mat-label id="label">อื่น ๆ</mat-label>
-                    <input matInput #hardSoilBlastMore="ngModel" ngModel name="hardSoilBlastMore"
-                      value="hardSoilBlastMore">
-                  </mat-form-field>
-                </td>
-              </tr>
-
-              <tr>
-                <td>
-                  2.ปุ๋ยอินทรีย์ (ภายในอายุ 30 วัน)
-                </td>
-                <!-- วางแผนใส่ปุ๋ยอินทรีย์วันที่ -->
-                <td>
-                  <mat-form-field class="field">
-                    <mat-label id="label">วัน/เดือน/ปี พ.ศ.</mat-label>
-                    <input matInput [ngClass]="{ 'is-invalid': organicPlan.invalid}" #organicPlan="ngModel" ngModel
-                      name="organicPlan" type="text"
-                      pattern="(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$">
-                    <div class="invalid-feedback">
-                      <span *ngIf="organicPlan.hasError('pattern')">รูปแบบวันที่ไม่ถูกต้อง</span>
-                    </div>
-                  </mat-form-field>
-                </td>
-                <!-- วันที่ใส่ปุ๋ยอินทรีย์ -->
-                <td>
-                  <mat-form-field class="field">
-                    <mat-label id="label">วัน/เดือน/ปี พ.ศ.</mat-label>
-                    <input matInput [ngClass]="{ 'is-invalid': organicDate.invalid}" #organicDate="ngModel" ngModel
-                      name="organicDate" type="text"
-                      pattern="(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$">
-                    <div class="invalid-feedback">
-                      <span *ngIf="organicDate.hasError('pattern')">รูปแบบวันที่ไม่ถูกต้อง</span>
-                    </div>
-                  </mat-form-field>
-                </td>
-                <!-- ใส่ปุ๋ยอินทรีย์ทันเวลาหรือไม่ -->
-                <td>
-                  <mat-radio-group aria-labelledby="example-radio-group-label" class="organicIntime"
-                    #organicIntime="ngModel" ngModel name="organicIntime">
-                    <mat-radio-button value="1">ทันเวลา</mat-radio-button><br>
-                    <mat-radio-button value="2">ไม่ทันเวลา</mat-radio-button>
-                  </mat-radio-group>
-                </td>
-                <!-- อัตราปุ๋ยอินทรีย์ -->
-                <td>
-                  <mat-form-field class="field">
-                    <mat-label id="label">อัตรา...กก./ไร่</mat-label>
-                    <input matInput #organicRatio="ngModel" ngModel name="organicRatio" type="text">
-                    <div class="invalid-feedback">
-                      <span>กรุณากรอกอัตรา</span>
-                    </div>
-                  </mat-form-field>
-                </td>
-                <!-- วิธีการใส่ปุ๋ยอินทรีย์ -->
-                <td>
-                  <mat-radio-group aria-labelledby="example-radio-group-label" class="organicMethod"
-                    #organicMethod="ngModel" ngModel name="organicMethod">
-                    <mat-radio-button value="1">ใช้คนโรย</mat-radio-button><br>
-                    <mat-radio-button value="2">ใช้เครื่อง</mat-radio-button>
-                  </mat-radio-group>
-                </td>
-                <!-- เรื่องอื่นๆเกี่ยวกับการใส่ปุ๋ยอินทรีย์ -->
-                <td>
-                  <mat-form-field class="field">
-                    <mat-label id="label">อื่น ๆ</mat-label>
-                    <input matInput #organicMore="ngModel" ngModel name="organicMore">
-                  </mat-form-field>
-                </td>
-              </tr>
-
-              <tr>
-                <td>
-                  3.โดโลไมท์ (ภายในอายุ 30 วัน)
-                </td>
-                <!-- วางแผนใส่โดโลไมท์วันที่ -->
-                <td>
-                  <mat-form-field class="field">
-                    <mat-label id="label">วัน/เดือน/ปี พ.ศ.</mat-label>
-                    <input matInput [ngClass]="{ 'is-invalid': dolomitePlan.invalid}" #dolomitePlan="ngModel" ngModel
-                      name="dolomitePlan" type="text"
-                      pattern="(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$">
-                    <div class="invalid-feedback">
-                      <span *ngIf="dolomitePlan.hasError('pattern')">รูปแบบวันที่ไม่ถูกต้อง</span>
-                    </div>
-                  </mat-form-field>
-                </td>
-                <!-- วันที่ใส่โดโลไมท์ -->
-                <td>
-                  <mat-form-field class="field">
-                    <mat-label id="label">วัน/เดือน/ปี พ.ศ.</mat-label>
-                    <input matInput [ngClass]="{ 'is-invalid': dolomiteDate.invalid}" #dolomiteDate="ngModel" ngModel
-                      name="dolomiteDate" type="text"
-                      pattern="(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$">
-                    <div class="invalid-feedback">
-                      <span *ngIf="dolomiteDate.hasError('pattern')">รูปแบบวันที่ไม่ถูกต้อง</span>
-                    </div>
-                  </mat-form-field>
-                </td>
-                <!-- ใส่โดโลไมท์ทันเวลาหรือไม่ -->
-                <td>
-                  <mat-radio-group aria-labelledby="example-radio-group-label" class="dolomiteIntime"
-                    #dolomiteIntime="ngModel" ngModel name="dolomiteIntime">
-                    <mat-radio-button value="1">ทันเวลา</mat-radio-button><br>
-                    <mat-radio-button value="2">ไม่ทันเวลา</mat-radio-button>
-                  </mat-radio-group>
-                </td>
-                <!-- อัตราโดโลไมท์ -->
-                <td>
-                  <mat-form-field class="field">
-                    <mat-label id="label">อัตรา...กก./ไร่</mat-label>
-                    <input matInput #dolomiteRatio="ngModel" ngModel name="dolomiteRatio" type="text">
-                    <div class="invalid-feedback">
-                      <span>กรุณากรอกอัตรา</span>
-                    </div>
-                  </mat-form-field>
-                </td>
-                <!-- วิธีการใส่โดโลไมท์ -->
-                <td>
-                  <mat-radio-group aria-labelledby="example-radio-group-label" class="dolomiteMethod"
-                    #dolomiteMethod="ngModel" ngModel name="dolomiteMethod">
-                    <mat-radio-button value="1">ใช้คนโรย</mat-radio-button><br>
-                    <mat-radio-button value="2">ใช้เครื่อง</mat-radio-button>
-                  </mat-radio-group>
-                </td>
-                <!-- เรื่องอื่นๆเกี่ยวกับการใส่โดโลไมท์ -->
-                <td>
-                  <mat-form-field class="field">
-                    <mat-label id="label">อื่น ๆ</mat-label>
-                    <input matInput #dolomiteMore="ngModel" ngModel name="dolomiteMore">
-                  </mat-form-field>
-                </td>
-              </tr>
-
-              <tr>
-                <td>
-                  4.ใส่ปุ๋ยเคมีครั้งที่ 1 (ภายในอายุ 30 วัน)
-                </td>
-                <!-- วางแผนใส่ ปุ๋ยเคมี1 วันที่ -->
-                <td>
-                  <mat-form-field class="field">
-                    <mat-label id="label">วัน/เดือน/ปี พ.ศ.</mat-label>
-                    <input matInput [ngClass]="{ 'is-invalid': chemical1Plan.invalid}" #chemical1Plan="ngModel" ngModel
-                      name="chemical1Plan" type="text"
-                      pattern="(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$">
-                    <div class="invalid-feedback">
-                      <span *ngIf="chemical1Plan.hasError('pattern')">รูปแบบวันที่ไม่ถูกต้อง</span>
-                    </div>
-                  </mat-form-field>
-                </td>
-                <!-- วันที่ใส่ เคมี1 -->
-                <td>
-                  <mat-form-field class="field">
-                    <mat-label id="label">วัน/เดือน/ปี พ.ศ.</mat-label>
-                    <input matInput [ngClass]="{ 'is-invalid': chemical1Date.invalid}" #chemical1Date="ngModel" ngModel
-                      name="chemical1Date" type="text"
-                      pattern="(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$">
-                    <div class="invalid-feedback">
-                      <span *ngIf="chemical1Date.hasError('pattern')">รูปแบบวันที่ไม่ถูกต้อง</span>
-                    </div>
-                  </mat-form-field>
-                </td>
-                <!-- ใส่ ปุ๋ยเคมี1 ทันเวลาหรือไม่ -->
-                <td>
-                  <mat-radio-group aria-labelledby="example-radio-group-label" class="chemical1Intime"
-                    #chemical1Intime="ngModel" ngModel name="chemical1Intime">
-                    <mat-radio-button value="1">ทันเวลา</mat-radio-button><br>
-                    <mat-radio-button value="2">ไม่ทันเวลา</mat-radio-button>
-                  </mat-radio-group>
-                </td>
-                <!-- อัตรา ปุ๋ยเคมี1 กก./ไร่ -->
-                <td>
-                  <mat-form-field class="field">
-                    <mat-label id="label">อัตรา...กก./ไร่<br>สูตร....</mat-label>
-                    <input matInput #chemical1Ratio="ngModel" ngModel name="chemical1Ratio" type="text">
-                    <div class="invalid-feedback">
-                      <span>กรุณากรอกอัตราและสูตร</span>
-                    </div>
-                  </mat-form-field>
-                </td>
-                <!-- วิธีการใส่ ปุ๋ยเคมี1 คน รถ -->
-                <td>
-                  <mat-radio-group aria-labelledby="example-radio-group-label" class="chemical1Method"
-                    #chemical1Method="ngModel" ngModel name="chemical1Method">
-                    <mat-radio-button value="1">ใช้คนโรย</mat-radio-button><br>
-                    <mat-radio-button value="2">ใช้เครื่อง</mat-radio-button>
-                  </mat-radio-group>
-                </td>
-                <!-- เรื่องอื่นๆเกี่ยวกับการใส ปุ๋ยเคมี1 -->
-                <td>
-                  <mat-form-field class="field">
-                    <mat-label id="label">อื่น ๆ</mat-label>
-                    <input matInput #chemical1More="ngModel" ngModel name="chemical1More">
-                  </mat-form-field>
-                </td>
-              </tr>
-
-              <tr>
-                <td>
-                  5.ใส่ปุ๋ยเคมีครั้งที่ 2 (ภายในอายุ 75 วัน)
-                </td>
-                <!-- วางแผนใส่ ปุ๋ยเคมี2 วันที่ -->
-                <td>
-                  <mat-form-field class="field">
-                    <mat-label id="label">วัน/เดือน/ปี พ.ศ.</mat-label>
-                    <input matInput [ngClass]="{ 'is-invalid': chemical2Plan.invalid}" #chemical2Plan="ngModel" ngModel
-                      name="chemical2Plan" type="text"
-                      pattern="(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$">
-                    <div class="invalid-feedback">
-                      <span *ngIf="chemical2Plan.hasError('pattern')">รูปแบบวันที่ไม่ถูกต้อง</span>
-                    </div>
-                  </mat-form-field>
-                </td>
-                <!-- วันที่ใส่ เคมี2 -->
-                <td>
-                  <mat-form-field class="field">
-                    <mat-label id="label">วัน/เดือน/ปี พ.ศ.</mat-label>
-                    <input matInput [ngClass]="{ 'is-invalid': chemical2Date.invalid}" #chemical2Date="ngModel" ngModel
-                      name="chemical2Date" type="text"
-                      pattern="(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$">
-                    <div class="invalid-feedback">
-                      <span *ngIf="chemical2Date.hasError('pattern')">รูปแบบวันที่ไม่ถูกต้อง</span>
-                    </div>
-                  </mat-form-field>
-                </td>
-                <!-- ใส่ ปุ๋ยเคมี2 ทันเวลาหรือไม่ -->
-                <td>
-                  <mat-radio-group aria-labelledby="example-radio-group-label" class="chemical2Intime"
-                    #chemical2Intime="ngModel" ngModel name="chemical2Intime">
-                    <mat-radio-button value="1">ทันเวลา</mat-radio-button><br>
-                    <mat-radio-button value="2">ไม่ทันเวลา</mat-radio-button>
-                  </mat-radio-group>
-                </td>
-                <!-- อัตรา ปุ๋ยเคมี2 กก./ไร่ -->
-                <td>
-                  <mat-form-field class="field">
-                    <mat-label id="label">อัตรา...กก./ไร่<br>สูตร....</mat-label>
-                    <input matInput #chemical2Ratio="ngModel" ngModel name="chemical2Ratio" type="text">
-                    <div class="invalid-feedback">
-                      <span>กรุณากรอกอัตราและสูตร</span>
-                    </div>
-                  </mat-form-field>
-                </td>
-                <!-- วิธีการใส่ ปุ๋ยเคมี2 คน รถ -->
-                <td>
-                  <mat-radio-group aria-labelledby="example-radio-group-label" class="chemical2Method"
-                    #chemical2Method="ngModel" ngModel name="chemical2Method">
-                    <mat-radio-button value="1">ใช้คนโรย</mat-radio-button><br>
-                    <mat-radio-button value="2">ใช้เครื่อง</mat-radio-button>
-                  </mat-radio-group>
-                </td>
-                <!-- เรื่องอื่นๆเกี่ยวกับการใส ปุ๋ยเคมี2 -->
-                <td>
-                  <mat-form-field class="field">
-                    <mat-label id="label">อื่น ๆ</mat-label>
-                    <input matInput #chemical2More="ngModel" ngModel name="chemical2More">
-                  </mat-form-field>
-                </td>
-              </tr>
-
-              <tr>
-                <td>
-                  6.การพูนโคน เพื่อรองรับรถตัดอ้อย (ระยะเวลา 75 วัน)
-                </td>
-                <!-- วางแผน การพูนโคน วันที่ -->
-                <td>
-                  <mat-form-field class="field">
-                    <mat-label id="label">วัน/เดือน/ปี พ.ศ.</mat-label>
-                    <input matInput [ngClass]="{ 'is-invalid': rootingPlan.invalid}" #rootingPlan="ngModel" ngModel
-                      name="rootingPlan" type="text"
-                      pattern="(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$">
-                    <div class="invalid-feedback">
-                      <span *ngIf="rootingPlan.hasError('pattern')">รูปแบบวันที่ไม่ถูกต้อง</span>
-                    </div>
-                  </mat-form-field>
-                </td>
-                <!-- วันที่ทำ การพูนโคน -->
-                <td>
-                  <mat-form-field class="field">
-                    <mat-label id="label">วัน/เดือน/ปี พ.ศ.</mat-label>
-                    <input matInput [ngClass]="{ 'is-invalid': rootingDate.invalid}" #rootingDate="ngModel" ngModel
-                      name="rootingDate" type="text"
-                      pattern="(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$">
-                    <div class="invalid-feedback">
-                      <span *ngIf="rootingDate.hasError('pattern')">รูปแบบวันที่ไม่ถูกต้อง</span>
-                    </div>
-                  </mat-form-field>
-                </td>
-                <!-- การพูนโคน ทันเวลาหรือไม่ -->
-                <td>
-                  <mat-radio-group aria-labelledby="example-radio-group-label" class="rootingIntime"
-                    #rootingIntime="ngModel" ngModel name="rootingIntime">
-                    <mat-radio-button value="1">ทันเวลา</mat-radio-button><br>
-                    <mat-radio-button value="2">ไม่ทันเวลา</mat-radio-button>
-                  </mat-radio-group>
-                </td>
-                <td>
-                  <!-- <mat-form-field class="field">
-                <mat-label id="label">วิธีการ....</mat-label>
-                <input matInput type="text" required>
-                <div class="invalid-feedback">
-                  <span>กรุณากรอกวิธีการทำ</span>
-                </div>
-              </mat-form-field> -->
-                </td>
-                <!-- วิธีการพูนโคน คน รถ -->
-                <td>
-                  <mat-radio-group aria-labelledby="example-radio-group-label" class="rootingMethod"
-                    #rootingMethod="ngModel" ngModel name="rootingMethod">
-                    <mat-radio-button value="1">ใช้คนโรย</mat-radio-button><br>
-                    <mat-radio-button value="2">ใช้เครื่อง</mat-radio-button>
-                  </mat-radio-group>
-                </td>
-                <!-- เรื่องอื่นๆเกี่ยวกับ การพูนโคน -->
-                <td>
-                  <mat-form-field class="field">
-                    <mat-label id="label">อื่น ๆ</mat-label>
-                    <input matInput #rootingMore="ngModel" ngModel name="rootingMore">
-                  </mat-form-field>
-                </td>
-              </tr>
-
-              <tr>
-                <td>
-                  7.ใส่ปุ๋ยเคมีครั้งที่ 3 เพื่อเพิ่มผลผลิต (ภายในอายุ 90 วัน)
-                </td>
-                <!-- วางแผนใส่ ปุ๋ยเคมี3 วันที่ -->
-                <td>
-                  <mat-form-field class="field">
-                    <mat-label id="label">วัน/เดือน/ปี พ.ศ.</mat-label>
-                    <input matInput [ngClass]="{ 'is-invalid': chemical3Plan.invalid}" #chemical3Plan="ngModel" ngModel
-                      name="chemical3Plan" type="text"
-                      pattern="(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$">
-                    <div class="invalid-feedback">
-                      <span *ngIf="chemical3Plan.hasError('pattern')">รูปแบบวันที่ไม่ถูกต้อง</span>
-                    </div>
-                  </mat-form-field>
-                </td>
-                <!-- วันที่ใส่ เคมี3 -->
-                <td>
-                  <mat-form-field class="field">
-                    <mat-label id="label">วัน/เดือน/ปี พ.ศ.</mat-label>
-                    <input matInput [ngClass]="{ 'is-invalid': chemical3Date.invalid}" #chemical3Date="ngModel" ngModel
-                      name="chemical3Date" type="text"
-                      pattern="(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$">
-                    <div class="invalid-feedback">
-                      <span *ngIf="chemical3Date.hasError('pattern')">รูปแบบวันที่ไม่ถูกต้อง</span>
-                    </div>
-                  </mat-form-field>
-                </td>
-                <!-- ใส่ ปุ๋ยเคมี3 ทันเวลาหรือไม่ -->
-                <td>
-                  <mat-radio-group aria-labelledby="example-radio-group-label" class="chemical3Intime"
-                    #chemical3Intime="ngModel" ngModel name="chemical3Intime">
-                    <mat-radio-button value="1">ทันเวลา</mat-radio-button><br>
-                    <mat-radio-button value="2">ไม่ทันเวลา</mat-radio-button>
-                  </mat-radio-group>
-                </td>
-                <!-- อัตรา ปุ๋ยเคมี3 กก./ไร่ -->
-                <td>
-                  <mat-form-field class="field">
-                    <mat-label id="label">อัตรา...กก./ไร่<br>สูตร....</mat-label>
-                    <input matInput #chemical3Ratio="ngModel" ngModel name="chemical3Ratio" type="text">
-                    <div class="invalid-feedback">
-                      <span>กรุณากรอกอัตราและสูตร</span>
-                    </div>
-                  </mat-form-field>
-                </td>
-                <!-- วิธีการใส่ ปุ๋ยเคมี3 คน รถ -->
-                <td>
-                  <mat-radio-group aria-labelledby="example-radio-group-label" class="chemical3Method"
-                    #chemical3Method="ngModel" ngModel name="chemical3Method">
-                    <mat-radio-button value="1">ใช้คนโรย</mat-radio-button><br>
-                    <mat-radio-button value="2">ใช้เครื่อง</mat-radio-button>
-                  </mat-radio-group>
-                </td>
-                <!-- เรื่องอื่นๆเกี่ยวกับการใส ปุ๋ยเคมี3 -->
-                <td>
-                  <mat-form-field class="field">
-                    <mat-label id="label">อื่น ๆ</mat-label>
-                    <input matInput #chemical3More="ngModel" ngModel name="chemical3More">
-                  </mat-form-field>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="d-flex">
-          <div class="mr-auto p-2"></div>
-          <div class="p-2">
-            <!-- <button mat-raised-button color="accent" type="submit">บันทึก</button> -->
-            <button mat-raised-button color="accent" type="submit">บันทึก</button>
-          </div>
-        </div>
+      <table class="table table-hover table-responsive" id="DetailActivity">
+        <thead align="center">
+          <tr>
+            <th>#</th>
+            <th>รายละเอียด</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="s_landno" align="center">
+          <tr>
+            <td>id แปลงอ้อย</td>
+            <td>{{s_landno.itid}}</td>
+          </tr>
+          <tr>
+            <td>วันที่เพิ่มข้อมูล</td>
+            <td>{{s_landno.dateAdd}}</td>
+          </tr>
+          <tr>
+            <td>วันที่อัพเดตข้อมูล</td>
+            <td>{{s_landno.dateUpdate}}</td>
+          </tr>
+          <tr>
+            <td>ชื่อประเภทอ้อย</td>
+            <td>{{s_landno.canename}}</td>
+          </tr>
+          <tr>
+            <td>รหัสผู้บันทึกข้อมูล</td>
+            <td>{{s_landno.supcode}}</td>
+          </tr>
+          <tr>
+            <td>เป้าหมายผลผลิต ตัน/ไร่</td>
+            <td>{{s_landno.yieldTarget}}</td>
+          </tr>
+          <tr>
+            <td>ผลผลิตประเมิน ตัน/ไร่</td>
+            <td>{{s_landno.yieldEstimate}}</td>
+          </tr>
+          <tr>
+            <td>ชื่อเรียกแปลงอ้อย</td>
+            <td>{{s_landno.plotName}}</td>
+          </tr>
+        </tbody>
+        <thead align="center">
+          <tr>
+            <th colspan="2">การระเบิดดินดาน ภายใน 30 วัน</th>
+            <th colspan="2">การใส่ปุ๋ยอินทรีย์ ภายใน 30 วัน</th>
+            <th colspan="2">การใส่โดโลไมท์ ภายใน 30 วัน</th>
+            <th colspan="2">การใส่ ปุ๋ยเคมี1 ภายใน 30 วัน</th>
+            <th colspan="2">การใส่ ปุ๋ยเคมี2 ภายใน 75 วัน</th>
+            <th colspan="2">การพูนโคน ภายใน 75 วัน</th>
+            <th colspan="2">การใส่ ปุ๋ยเคมี3 ภายใน 90 วัน</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="s_landno" align="center">
+          <tr>
+            <td>วางแผนระเบิดดินดานวันที่</td>
+            <td>{{s_landno.hardSoilBlastPlan}}</td>
+            <td>วางแผนใส่ปุ๋ยอินทรีย์วันที่</td>
+            <td>{{s_landno.organicPlan}}</td>
+            <td>วางแผนใส่โดโลไมท์วันที่</td>
+            <td>{{s_landno.dolomitePlan}}</td>
+            <td>วางแผนใส่ ปุ๋ยเคมี1 วันที่</td>
+            <td>{{s_landno.chemical1Plan}}</td>
+            <td>วางแผนใส่ ปุ๋ยเคมี2 วันที่</td>
+            <td>{{s_landno.chemical2Plan}}</td>
+            <td>วางแผน การพูนโคน วันที่</td>
+            <td>{{s_landno.rootingPlan}}</td>
+            <td>วางแผนใส่ ปุ๋ยเคมี3 วันที่</td>
+            <td>{{s_landno.chemical3Plan}}</td>
+          </tr>
+          <tr>
+            <td>ระเบิดดินดานแล้ววันที่</td>
+            <td>{{s_landno.hardSoilBlastDate}}</td>
+            <td>วันที่ใส่ปุ๋ยอินทรีย์</td>
+            <td>{{s_landno.organicDate}}</td>
+            <td>วันที่ใส่โดโลไมท์</td>
+            <td>{{s_landno.dolomiteDate}}</td>
+            <td>วันที่ใส่ เคมี1</td>
+            <td>{{s_landno.chemical1Date}}</td>
+            <td>วันที่ใส่ เคมี2</td>
+            <td>{{s_landno.chemical2Date}}</td>
+            <td>วันที่ทำ การพูนโคน</td>
+            <td>{{s_landno.rootingDate}}</td>
+            <td>วันที่ใส่ เคมี3</td>
+            <td>{{s_landno.chemical3Date}}</td>
+          </tr>
+          <tr>
+            <td>การระเบิดดินดานทันเวลาหรือไม่</td>
+            <td>{{s_landno.hardSoilBlastIntime}}</td>
+            <td>ใส่ปุ๋ยอินทรีย์ทันเวลาหรือไม่</td>
+            <td>{{s_landno.organicIntime}}</td>
+            <td>ใส่โดโลไมท์ทันเวลาหรือไม่</td>
+            <td>{{s_landno.dolomiteIntime}}</td>
+            <td>ใส่ ปุ๋ยเคมี1 ทันเวลาหรือไม่</td>
+            <td>{{s_landno.chemical1Intime}}</td>
+            <td>ใส่ ปุ๋ยเคมี2 ทันเวลาหรือไม่</td>
+            <td>{{s_landno.chemical2Intime}}</td>
+            <td>การพูนโคน ทันเวลาหรือไม่</td>
+            <td>{{s_landno.rootingIntime}}</td>
+            <td>ใส่ ปุ๋ยเคมี3 ทันเวลาหรือไม่</td>
+            <td>{{s_landno.chemical3Intime}}</td>
+          </tr>
+          <tr>
+            <td>การระเบิดดินดานมีคุณภาพหรือไม่</td>
+            <td>{{s_landno.hardSoilBlastQuality}}</td>
+            <td>อัตราปุ๋ยอินทรีย์ ตัน/ไร่</td>
+            <td>{{s_landno.organicRatio}}</td>
+            <td>อัตราโดโลไมท์ ตัน/ไร่</td>
+            <td>{{s_landno.dolomiteRatio}}</td>
+            <td>อัตรา ปุ๋ยเคมี1 กก./ไร่</td>
+            <td>{{s_landno.chemical1Ratio}}</td>
+            <td>อัตรา ปุ๋ยเคมี2 กก./ไร่</td>
+            <td>{{s_landno.chemical2Ratio}}</td>
+            <td></td>
+            <td></td>
+            <td>อัตรา ปุ๋ยเคมี3 กก./ไร่</td>
+            <td>{{s_landno.chemical3Ratio}}</td>
+          </tr>
+          <tr>
+            <td>วิธีการระเบิดดินดาน</td>
+            <td>{{s_landno.hardSoilBlastMethod}}</td>
+            <td>วิธีการใส่ปุ๋ยอินทรีย์</td>
+            <td>{{s_landno.organicMethod}}</td>
+            <td>วิธีการใส่โดโลไมท์</td>
+            <td>{{s_landno.dolomiteMethod}}</td>
+            <td>วิธีการใส่ ปุ๋ยเคมี1 คน รถ</td>
+            <td>{{s_landno.chemical1Method}}</td>
+            <td>วิธีการใส่ ปุ๋ยเคมี2 คน รถ</td>
+            <td>{{s_landno.chemical2Method}}</td>
+            <td>วิธีการพูนโคน คน รถ</td>
+            <td>{{s_landno.rootingMethod}}</td>
+            <td>วิธีการใส่ ปุ๋ยเคมี3 คน รถ</td>
+            <td>{{s_landno.chemical3Method}}</td>
+          </tr>
+          <tr>
+            <td>เรื่องอื่นๆเกี่ยวกับการระเบิดดินดาน</td>
+            <td>{{s_landno.hardSoilBlastMore}}</td>
+            <td>เรื่องอื่นๆเกี่ยวกับการใส่ปุ๋ยอินทรีย์</td>
+            <td>{{s_landno.organicMore}}</td>
+            <td>เรื่องอื่นๆเกี่ยวกับการใส่โดโลไมท์</td>
+            <td>{{s_landno.dolomiteMore}}</td>
+            <td>เรื่องอื่นๆเกี่ยวกับการใส ปุ๋ยเคมี1</td>
+            <td>{{s_landno.chemical1More}}</td>
+            <td>เรื่องอื่นๆเกี่ยวกับการใส ปุ๋ยเคมี2</td>
+            <td>{{s_landno.chemical2More}}</td>
+            <td>เรื่องอื่นๆเกี่ยวกับ การพูนโคน</td>
+            <td>{{s_landno.rootingMore}}</td>
+            <td>เรื่องอื่นๆเกี่ยวกับการใส ปุ๋ยเคมี3</td>
+            <td>{{s_landno.chemical3More}}</td>
+          </tr>
+        </tbody>
+      </table>
 
 
-      </form>
     </div>
   </div>
-  <!-- ฟอร์มแก้ไข -->
 
-  <div class="offcanvas offcanvas-end" id="demo">
-
-    <div class="offcanvas-header">
-      <h1 class="offcanvas-title"><span>แบบรายงานการตรวจกิจกรรมแปลงผลผลิตสูง ปี 2566/67 (แก้ไข)</span></h1>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-    </div>
-    <div class="offcanvas-body">
-      <div *ngIf="s_landno">
-        <div class="row">
-          <div class="col-md-4">
-            <span>ชื่อ-สกุลชาวไร่ : {{ s_landno.fmname }} </span>
-          </div>
-          <div class="col-md-4">
-            <span>เลขที่บัญชี : {{ s_landno.fmcode }}</span>
-          </div>
-          <div class="col-md-4">
-            <span>หมายเลขแปลง : {{ s_landno.intlandno }} </span>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4">
-            <span>วันที่ปลูก : {{ s_landno.PlantDateTH }} </span>
-          </div>
-          <div class="col-md-4">
-            <span>อายุอ้อย : {{ s_landno.caneage }} วัน</span>
-          </div>
-          <div class="col-md-4">
-            <span>ประเภทอ้อย : {{ s_landno.CaneTypeName }} </span>
-          </div>
-        </div>
-
-        <!-- ฟอร์มบันทึกกิจกรรม -->
-        <form class="needs-validation" #save="ngForm" novalidate (ngSubmit)="submitSave(save)" id="myForm">
-
-          <!-- id แปลงอ้อย -->
-          <input matInput id="itid" #itid="ngModel" ngModel name="itid" type="text" value="{{itid}}">
-          <!-- รหัสผู้บันทึกข้อมูล -->
-          <input matInput id="supcode" #supcode="ngModel" ngModel name="supcode" type="text" value="{{supcode}}">
-
-          <div class="row">
-            <!-- ผลผลิตประเมิน ตัน/ไร่ -->
-            <div class="col-md-4">
-              <mat-form-field class="example-full-width">
-                <mat-label>ประเมิน*</mat-label>
-                <input matInput maxlength="35" minlength="0"
-                  [ngClass]="{ 'is-invalid': yieldEstimate.invalid && yieldEstimate.touched }" #yieldEstimate="ngModel"
-                  ngModel name="yieldEstimate" type="text" required>
-                <mat-hint align="end">{{yieldEstimate.value.length}} / 35</mat-hint>
-                <div class="invalid-feedback">
-                  <span>กรุณากรอกข้อมูลในช่องนี้</span>
-                </div>
-              </mat-form-field>
-            </div>
-            <div class="col-md-4">
-              <!-- เป้าหมายผลผลิต ตัน/ไร่ -->
-              <mat-form-field class="example-full-width">
-                <mat-label>เป้าหมาย*</mat-label>
-                <input matInput maxlength="35" minlength="0"
-                  [ngClass]="{ 'is-invalid': yieldTarget.invalid && yieldTarget.touched }" #yieldTarget="ngModel"
-                  ngModel name="yieldTarget" type="text" required>
-                <mat-hint align="end">{{yieldTarget.value.length}} / 35</mat-hint>
-                <div class="invalid-feedback">
-                  <span>กรุณากรอกข้อมูลในช่องนี้</span>
-                </div>
-              </mat-form-field>
-            </div>
-            <!-- รายละเอียดแปลงเพิ่มเติมต่างๆ  -->
-            <div class="col-md-4">
-              <mat-form-field class="example-full-width">
-                <mat-label>รายละเอียด</mat-label>
-                <input matInput #plotMoreDesc="ngModel" ngModel name="plotMoreDesc" type="text">
-                <div class="invalid-feedback">
-                  <span>กรุณากรอกข้อมูลในช่องนี้</span>
-                </div>
-              </mat-form-field>
-            </div>
-          </div>
-
-          <div class="table-responsive">
-            <table class="table  table-hover">
-              <thead align="center">
-                <tr>
-                  <th scope="col">กิจกรรมเพิ่มผลผลิต</th>
-                  <th scope="col">วางแผนที่จะทำ</th>
-                  <th scope="col">วันที่ทำจริง</th>
-                  <th scope="col">ทันเวลา</th>
-                  <th scope="col">คุณภาพ</th>
-                  <th scope="col">วิธีการทำ</th>
-                  <th scope="col">อื่น ๆ</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    1.การระเบิดดินดาน (ภายในอายุ 30 วัน)
-                  </td>
-                  <!--วางแผนระเบิดดินดานวันที่-->
-                  <td>
-                    <mat-form-field class="field">
-                      <mat-label id="label">ปี-เดือน-วัน</mat-label>
-                      <input matInput [ngClass]="{ 'is-invalid': hardSoilBlastPlan.invalid}"
-                        #hardSoilBlastPlan="ngModel" ngModel name="hardSoilBlastPlan" type="text"
-                        pattern="\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$">
-                      <div class="invalid-feedback">
-                        <span *ngIf="hardSoilBlastPlan.hasError('pattern')">รูปแบบวันที่ไม่ถูกต้อง</span>
-                      </div>
-                    </mat-form-field>
-                  </td>
-                  <!-- ระเบิดดินดานแล้ววันที่ -->
-                  <td>
-                    <mat-form-field class="field">
-                      <mat-label id="label">ปี-เดือน-วัน</mat-label>
-                      <input matInput [ngClass]="{ 'is-invalid': hardSoilBlastDate.invalid}"
-                        #hardSoilBlastDate="ngModel" ngModel name="hardSoilBlastDate" type="text">
-                      <!-- <div class="invalid-feedback">
-                        <span *ngIf="hardSoilBlastPlan.hasError('pattern')">รูปแบบวันที่ไม่ถูกต้อง</span>
-                      </div> -->
-                    </mat-form-field>
-                  </td>
-                  <!-- การระเบิดดินดานทันเวลาหรือไม่ -->
-                  <td>
-                    <mat-radio-group aria-labelledby="example-radio-group-label" class="hardSoilBlastIntime"
-                      #hardSoilBlastIntime="ngModel" ngModel name="hardSoilBlastIntime">
-                      <mat-radio-button value="1">ทันเวลา</mat-radio-button><br>
-                      <mat-radio-button value="2">ไม่ทันเวลา</mat-radio-button>
-                    </mat-radio-group>
-                  </td>
-                  <!-- การระเบิดดินดานมีคุณภาพหรือไม่ -->
-                  <td>
-                    <mat-radio-group aria-labelledby="example-radio-group-label" class="hardSoilBlastQuality"
-                      #hardSoilBlastQuality="ngModel" ngModel name="hardSoilBlastQuality">
-                      <mat-radio-button value="1">ผ่านความลึก</mat-radio-button><br>
-                      <mat-radio-button value="2">ไม่ผ่านความลึก</mat-radio-button>
-                    </mat-radio-group>
-                  </td>
-                  <!-- วิธีการระเบิดดินดาน -->
-                  <td>
-                    <mat-form-field class="field">
-                      <mat-label id="label">วิธีการทำ</mat-label>
-                      <input matInput #hardSoilBlastMethod="ngModel" ngModel name="hardSoilBlastMethod" type="text">
-                      <div class="invalid-feedback">
-                        <span>กรุณากรอกวิธีการทำ</span>
-                      </div>
-                    </mat-form-field>
-                  </td>
-                  <!-- เรื่องอื่นๆเกี่ยวกับการระเบิดดินดาน -->
-                  <td>
-                    <mat-form-field class="field">
-                      <mat-label id="label">อื่น ๆ</mat-label>
-                      <input matInput #hardSoilBlastMore="ngModel" ngModel name="hardSoilBlastMore"
-                        value="hardSoilBlastMore">
-                    </mat-form-field>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    2.ปุ๋ยอินทรีย์ (ภายในอายุ 30 วัน)
-                  </td>
-                  <!-- วางแผนใส่ปุ๋ยอินทรีย์วันที่ -->
-                  <td>
-                    <mat-form-field class="field">
-                      <mat-label id="label">วัน/เดือน/ปี พ.ศ.</mat-label>
-                      <input matInput [ngClass]="{ 'is-invalid': organicPlan.invalid}" #organicPlan="ngModel" ngModel
-                        name="organicPlan" type="text"
-                        pattern="(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$">
-                      <div class="invalid-feedback">
-                        <span *ngIf="organicPlan.hasError('pattern')">รูปแบบวันที่ไม่ถูกต้อง</span>
-                      </div>
-                    </mat-form-field>
-                  </td>
-                  <!-- วันที่ใส่ปุ๋ยอินทรีย์ -->
-                  <td>
-                    <mat-form-field class="field">
-                      <mat-label id="label">วัน/เดือน/ปี พ.ศ.</mat-label>
-                      <input matInput [ngClass]="{ 'is-invalid': organicDate.invalid}" #organicDate="ngModel" ngModel
-                        name="organicDate" type="text"
-                        pattern="(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$">
-                      <div class="invalid-feedback">
-                        <span *ngIf="organicDate.hasError('pattern')">รูปแบบวันที่ไม่ถูกต้อง</span>
-                      </div>
-                    </mat-form-field>
-                  </td>
-                  <!-- ใส่ปุ๋ยอินทรีย์ทันเวลาหรือไม่ -->
-                  <td>
-                    <mat-radio-group aria-labelledby="example-radio-group-label" class="organicIntime"
-                      #organicIntime="ngModel" ngModel name="organicIntime">
-                      <mat-radio-button value="1">ทันเวลา</mat-radio-button><br>
-                      <mat-radio-button value="2">ไม่ทันเวลา</mat-radio-button>
-                    </mat-radio-group>
-                  </td>
-                  <!-- อัตราปุ๋ยอินทรีย์ -->
-                  <td>
-                    <mat-form-field class="field">
-                      <mat-label id="label">อัตรา...กก./ไร่</mat-label>
-                      <input matInput #organicRatio="ngModel" ngModel name="organicRatio" type="text">
-                      <div class="invalid-feedback">
-                        <span>กรุณากรอกอัตรา</span>
-                      </div>
-                    </mat-form-field>
-                  </td>
-                  <!-- วิธีการใส่ปุ๋ยอินทรีย์ -->
-                  <td>
-                    <mat-radio-group aria-labelledby="example-radio-group-label" class="organicMethod"
-                      #organicMethod="ngModel" ngModel name="organicMethod">
-                      <mat-radio-button value="1">ใช้คนโรย</mat-radio-button><br>
-                      <mat-radio-button value="2">ใช้เครื่อง</mat-radio-button>
-                    </mat-radio-group>
-                  </td>
-                  <!-- เรื่องอื่นๆเกี่ยวกับการใส่ปุ๋ยอินทรีย์ -->
-                  <td>
-                    <mat-form-field class="field">
-                      <mat-label id="label">อื่น ๆ</mat-label>
-                      <input matInput #organicMore="ngModel" ngModel name="organicMore">
-                    </mat-form-field>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    3.โดโลไมท์ (ภายในอายุ 30 วัน)
-                  </td>
-                  <!-- วางแผนใส่โดโลไมท์วันที่ -->
-                  <td>
-                    <mat-form-field class="field">
-                      <mat-label id="label">วัน/เดือน/ปี พ.ศ.</mat-label>
-                      <input matInput [ngClass]="{ 'is-invalid': dolomitePlan.invalid}" #dolomitePlan="ngModel" ngModel
-                        name="dolomitePlan" type="text"
-                        pattern="(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$">
-                      <div class="invalid-feedback">
-                        <span *ngIf="dolomitePlan.hasError('pattern')">รูปแบบวันที่ไม่ถูกต้อง</span>
-                      </div>
-                    </mat-form-field>
-                  </td>
-                  <!-- วันที่ใส่โดโลไมท์ -->
-                  <td>
-                    <mat-form-field class="field">
-                      <mat-label id="label">วัน/เดือน/ปี พ.ศ.</mat-label>
-                      <input matInput [ngClass]="{ 'is-invalid': dolomiteDate.invalid}" #dolomiteDate="ngModel" ngModel
-                        name="dolomiteDate" type="text"
-                        pattern="(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$">
-                      <div class="invalid-feedback">
-                        <span *ngIf="dolomiteDate.hasError('pattern')">รูปแบบวันที่ไม่ถูกต้อง</span>
-                      </div>
-                    </mat-form-field>
-                  </td>
-                  <!-- ใส่โดโลไมท์ทันเวลาหรือไม่ -->
-                  <td>
-                    <mat-radio-group aria-labelledby="example-radio-group-label" class="dolomiteIntime"
-                      #dolomiteIntime="ngModel" ngModel name="dolomiteIntime">
-                      <mat-radio-button value="1">ทันเวลา</mat-radio-button><br>
-                      <mat-radio-button value="2">ไม่ทันเวลา</mat-radio-button>
-                    </mat-radio-group>
-                  </td>
-                  <!-- อัตราโดโลไมท์ -->
-                  <td>
-                    <mat-form-field class="field">
-                      <mat-label id="label">อัตรา...กก./ไร่</mat-label>
-                      <input matInput #dolomiteRatio="ngModel" ngModel name="dolomiteRatio" type="text">
-                      <div class="invalid-feedback">
-                        <span>กรุณากรอกอัตรา</span>
-                      </div>
-                    </mat-form-field>
-                  </td>
-                  <!-- วิธีการใส่โดโลไมท์ -->
-                  <td>
-                    <mat-radio-group aria-labelledby="example-radio-group-label" class="dolomiteMethod"
-                      #dolomiteMethod="ngModel" ngModel name="dolomiteMethod">
-                      <mat-radio-button value="1">ใช้คนโรย</mat-radio-button><br>
-                      <mat-radio-button value="2">ใช้เครื่อง</mat-radio-button>
-                    </mat-radio-group>
-                  </td>
-                  <!-- เรื่องอื่นๆเกี่ยวกับการใส่โดโลไมท์ -->
-                  <td>
-                    <mat-form-field class="field">
-                      <mat-label id="label">อื่น ๆ</mat-label>
-                      <input matInput #dolomiteMore="ngModel" ngModel name="dolomiteMore">
-                    </mat-form-field>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    4.ใส่ปุ๋ยเคมีครั้งที่ 1 (ภายในอายุ 30 วัน)
-                  </td>
-                  <!-- วางแผนใส่ ปุ๋ยเคมี1 วันที่ -->
-                  <td>
-                    <mat-form-field class="field">
-                      <mat-label id="label">วัน/เดือน/ปี พ.ศ.</mat-label>
-                      <input matInput [ngClass]="{ 'is-invalid': chemical1Plan.invalid}" #chemical1Plan="ngModel"
-                        ngModel name="chemical1Plan" type="text"
-                        pattern="(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$">
-                      <div class="invalid-feedback">
-                        <span *ngIf="chemical1Plan.hasError('pattern')">รูปแบบวันที่ไม่ถูกต้อง</span>
-                      </div>
-                    </mat-form-field>
-                  </td>
-                  <!-- วันที่ใส่ เคมี1 -->
-                  <td>
-                    <mat-form-field class="field">
-                      <mat-label id="label">วัน/เดือน/ปี พ.ศ.</mat-label>
-                      <input matInput [ngClass]="{ 'is-invalid': chemical1Date.invalid}" #chemical1Date="ngModel"
-                        ngModel name="chemical1Date" type="text"
-                        pattern="(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$">
-                      <div class="invalid-feedback">
-                        <span *ngIf="chemical1Date.hasError('pattern')">รูปแบบวันที่ไม่ถูกต้อง</span>
-                      </div>
-                    </mat-form-field>
-                  </td>
-                  <!-- ใส่ ปุ๋ยเคมี1 ทันเวลาหรือไม่ -->
-                  <td>
-                    <mat-radio-group aria-labelledby="example-radio-group-label" class="chemical1Intime"
-                      #chemical1Intime="ngModel" ngModel name="chemical1Intime">
-                      <mat-radio-button value="1">ทันเวลา</mat-radio-button><br>
-                      <mat-radio-button value="2">ไม่ทันเวลา</mat-radio-button>
-                    </mat-radio-group>
-                  </td>
-                  <!-- อัตรา ปุ๋ยเคมี1 กก./ไร่ -->
-                  <td>
-                    <mat-form-field class="field">
-                      <mat-label id="label">อัตรา...กก./ไร่<br>สูตร....</mat-label>
-                      <input matInput #chemical1Ratio="ngModel" ngModel name="chemical1Ratio" type="text">
-                      <div class="invalid-feedback">
-                        <span>กรุณากรอกอัตราและสูตร</span>
-                      </div>
-                    </mat-form-field>
-                  </td>
-                  <!-- วิธีการใส่ ปุ๋ยเคมี1 คน รถ -->
-                  <td>
-                    <mat-radio-group aria-labelledby="example-radio-group-label" class="chemical1Method"
-                      #chemical1Method="ngModel" ngModel name="chemical1Method">
-                      <mat-radio-button value="1">ใช้คนโรย</mat-radio-button><br>
-                      <mat-radio-button value="2">ใช้เครื่อง</mat-radio-button>
-                    </mat-radio-group>
-                  </td>
-                  <!-- เรื่องอื่นๆเกี่ยวกับการใส ปุ๋ยเคมี1 -->
-                  <td>
-                    <mat-form-field class="field">
-                      <mat-label id="label">อื่น ๆ</mat-label>
-                      <input matInput #chemical1More="ngModel" ngModel name="chemical1More">
-                    </mat-form-field>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    5.ใส่ปุ๋ยเคมีครั้งที่ 2 (ภายในอายุ 75 วัน)
-                  </td>
-                  <!-- วางแผนใส่ ปุ๋ยเคมี2 วันที่ -->
-                  <td>
-                    <mat-form-field class="field">
-                      <mat-label id="label">วัน/เดือน/ปี พ.ศ.</mat-label>
-                      <input matInput [ngClass]="{ 'is-invalid': chemical2Plan.invalid}" #chemical2Plan="ngModel"
-                        ngModel name="chemical2Plan" type="text"
-                        pattern="(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$">
-                      <div class="invalid-feedback">
-                        <span *ngIf="chemical2Plan.hasError('pattern')">รูปแบบวันที่ไม่ถูกต้อง</span>
-                      </div>
-                    </mat-form-field>
-                  </td>
-                  <!-- วันที่ใส่ เคมี2 -->
-                  <td>
-                    <mat-form-field class="field">
-                      <mat-label id="label">วัน/เดือน/ปี พ.ศ.</mat-label>
-                      <input matInput [ngClass]="{ 'is-invalid': chemical2Date.invalid}" #chemical2Date="ngModel"
-                        ngModel name="chemical2Date" type="text"
-                        pattern="(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$">
-                      <div class="invalid-feedback">
-                        <span *ngIf="chemical2Date.hasError('pattern')">รูปแบบวันที่ไม่ถูกต้อง</span>
-                      </div>
-                    </mat-form-field>
-                  </td>
-                  <!-- ใส่ ปุ๋ยเคมี2 ทันเวลาหรือไม่ -->
-                  <td>
-                    <mat-radio-group aria-labelledby="example-radio-group-label" class="chemical2Intime"
-                      #chemical2Intime="ngModel" ngModel name="chemical2Intime">
-                      <mat-radio-button value="1">ทันเวลา</mat-radio-button><br>
-                      <mat-radio-button value="2">ไม่ทันเวลา</mat-radio-button>
-                    </mat-radio-group>
-                  </td>
-                  <!-- อัตรา ปุ๋ยเคมี2 กก./ไร่ -->
-                  <td>
-                    <mat-form-field class="field">
-                      <mat-label id="label">อัตรา...กก./ไร่<br>สูตร....</mat-label>
-                      <input matInput #chemical2Ratio="ngModel" ngModel name="chemical2Ratio" type="text">
-                      <div class="invalid-feedback">
-                        <span>กรุณากรอกอัตราและสูตร</span>
-                      </div>
-                    </mat-form-field>
-                  </td>
-                  <!-- วิธีการใส่ ปุ๋ยเคมี2 คน รถ -->
-                  <td>
-                    <mat-radio-group aria-labelledby="example-radio-group-label" class="chemical2Method"
-                      #chemical2Method="ngModel" ngModel name="chemical2Method">
-                      <mat-radio-button value="1">ใช้คนโรย</mat-radio-button><br>
-                      <mat-radio-button value="2">ใช้เครื่อง</mat-radio-button>
-                    </mat-radio-group>
-                  </td>
-                  <!-- เรื่องอื่นๆเกี่ยวกับการใส ปุ๋ยเคมี2 -->
-                  <td>
-                    <mat-form-field class="field">
-                      <mat-label id="label">อื่น ๆ</mat-label>
-                      <input matInput #chemical2More="ngModel" ngModel name="chemical2More">
-                    </mat-form-field>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    6.การพูนโคน เพื่อรองรับรถตัดอ้อย (ระยะเวลา 75 วัน)
-                  </td>
-                  <!-- วางแผน การพูนโคน วันที่ -->
-                  <td>
-                    <mat-form-field class="field">
-                      <mat-label id="label">วัน/เดือน/ปี พ.ศ.</mat-label>
-                      <input matInput [ngClass]="{ 'is-invalid': rootingPlan.invalid}" #rootingPlan="ngModel" ngModel
-                        name="rootingPlan" type="text"
-                        pattern="(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$">
-                      <div class="invalid-feedback">
-                        <span *ngIf="rootingPlan.hasError('pattern')">รูปแบบวันที่ไม่ถูกต้อง</span>
-                      </div>
-                    </mat-form-field>
-                  </td>
-                  <!-- วันที่ทำ การพูนโคน -->
-                  <td>
-                    <mat-form-field class="field">
-                      <mat-label id="label">วัน/เดือน/ปี พ.ศ.</mat-label>
-                      <input matInput [ngClass]="{ 'is-invalid': rootingDate.invalid}" #rootingDate="ngModel" ngModel
-                        name="rootingDate" type="text"
-                        pattern="(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$">
-                      <div class="invalid-feedback">
-                        <span *ngIf="rootingDate.hasError('pattern')">รูปแบบวันที่ไม่ถูกต้อง</span>
-                      </div>
-                    </mat-form-field>
-                  </td>
-                  <!-- การพูนโคน ทันเวลาหรือไม่ -->
-                  <td>
-                    <mat-radio-group aria-labelledby="example-radio-group-label" class="rootingIntime"
-                      #rootingIntime="ngModel" ngModel name="rootingIntime">
-                      <mat-radio-button value="1">ทันเวลา</mat-radio-button><br>
-                      <mat-radio-button value="2">ไม่ทันเวลา</mat-radio-button>
-                    </mat-radio-group>
-                  </td>
-                  <td>
-                    <!-- <mat-form-field class="field">
-                        <mat-label id="label">วิธีการ....</mat-label>
-                        <input matInput type="text" required>
-                        <div class="invalid-feedback">
-                          <span>กรุณากรอกวิธีการทำ</span>
-                        </div>
-                      </mat-form-field> -->
-                  </td>
-                  <!-- วิธีการพูนโคน คน รถ -->
-                  <td>
-                    <mat-radio-group aria-labelledby="example-radio-group-label" class="rootingMethod"
-                      #rootingMethod="ngModel" ngModel name="rootingMethod">
-                      <mat-radio-button value="1">ใช้คนโรย</mat-radio-button><br>
-                      <mat-radio-button value="2">ใช้เครื่อง</mat-radio-button>
-                    </mat-radio-group>
-                  </td>
-                  <!-- เรื่องอื่นๆเกี่ยวกับ การพูนโคน -->
-                  <td>
-                    <mat-form-field class="field">
-                      <mat-label id="label">อื่น ๆ</mat-label>
-                      <input matInput #rootingMore="ngModel" ngModel name="rootingMore">
-                    </mat-form-field>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    7.ใส่ปุ๋ยเคมีครั้งที่ 3 เพื่อเพิ่มผลผลิต (ภายในอายุ 90 วัน)
-                  </td>
-                  <!-- วางแผนใส่ ปุ๋ยเคมี3 วันที่ -->
-                  <td>
-                    <mat-form-field class="field">
-                      <mat-label id="label">วัน/เดือน/ปี พ.ศ.</mat-label>
-                      <input matInput [ngClass]="{ 'is-invalid': chemical3Plan.invalid}" #chemical3Plan="ngModel"
-                        ngModel name="chemical3Plan" type="text"
-                        pattern="(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$">
-                      <div class="invalid-feedback">
-                        <span *ngIf="chemical3Plan.hasError('pattern')">รูปแบบวันที่ไม่ถูกต้อง</span>
-                      </div>
-                    </mat-form-field>
-                  </td>
-                  <!-- วันที่ใส่ เคมี3 -->
-                  <td>
-                    <mat-form-field class="field">
-                      <mat-label id="label">วัน/เดือน/ปี พ.ศ.</mat-label>
-                      <input matInput [ngClass]="{ 'is-invalid': chemical3Date.invalid}" #chemical3Date="ngModel"
-                        ngModel name="chemical3Date" type="text"
-                        pattern="(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$">
-                      <div class="invalid-feedback">
-                        <span *ngIf="chemical3Date.hasError('pattern')">รูปแบบวันที่ไม่ถูกต้อง</span>
-                      </div>
-                    </mat-form-field>
-                  </td>
-                  <!-- ใส่ ปุ๋ยเคมี3 ทันเวลาหรือไม่ -->
-                  <td>
-                    <mat-radio-group aria-labelledby="example-radio-group-label" class="chemical3Intime"
-                      #chemical3Intime="ngModel" ngModel name="chemical3Intime">
-                      <mat-radio-button value="1">ทันเวลา</mat-radio-button><br>
-                      <mat-radio-button value="2">ไม่ทันเวลา</mat-radio-button>
-                    </mat-radio-group>
-                  </td>
-                  <!-- อัตรา ปุ๋ยเคมี3 กก./ไร่ -->
-                  <td>
-                    <mat-form-field class="field">
-                      <mat-label id="label">อัตรา...กก./ไร่<br>สูตร....</mat-label>
-                      <input matInput #chemical3Ratio="ngModel" ngModel name="chemical3Ratio" type="text">
-                      <div class="invalid-feedback">
-                        <span>กรุณากรอกอัตราและสูตร</span>
-                      </div>
-                    </mat-form-field>
-                  </td>
-                  <!-- วิธีการใส่ ปุ๋ยเคมี3 คน รถ -->
-                  <td>
-                    <mat-radio-group aria-labelledby="example-radio-group-label" class="chemical3Method"
-                      #chemical3Method="ngModel" ngModel name="chemical3Method">
-                      <mat-radio-button value="1">ใช้คนโรย</mat-radio-button><br>
-                      <mat-radio-button value="2">ใช้เครื่อง</mat-radio-button>
-                    </mat-radio-group>
-                  </td>
-                  <!-- เรื่องอื่นๆเกี่ยวกับการใส ปุ๋ยเคมี3 -->
-                  <td>
-                    <mat-form-field class="field">
-                      <mat-label id="label">อื่น ๆ</mat-label>
-                      <input matInput #chemical3More="ngModel" ngModel name="chemical3More">
-                    </mat-form-field>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="d-flex">
-            <div class="mr-auto p-2"></div>
-            <div class="p-2">
-              <!-- <button mat-raised-button color="accent" type="submit">บันทึก</button> -->
-              <button mat-raised-button color="accent" type="submit">บันทึก</button>
-            </div>
-          </div>
-
-
-        </form>
-      </div>
-    </div>
-  </div>
 
 </div>

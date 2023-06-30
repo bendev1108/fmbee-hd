@@ -1,10 +1,11 @@
 function save() {
   Swal.fire({
-    title: 'กรุณาตรวจสอบข้อมูลก่อนยืนยันการบันทึก!!!',
+    title: '',
     showDenyButton: true,
     // showCancelButton: true,
     confirmButtonText: 'ยืนยันการบันทึกข้อมูล',
     denyButtonText: `ไม่ยืนยันการบันทึกข้อมูล`,
+
   }).then((result) => {
     /* Read more about isConfirmed, isDenied below */
     if (result.isConfirmed) {

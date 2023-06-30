@@ -3,6 +3,7 @@ import { BrdsqlService } from '../service/brdsql.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -15,10 +16,11 @@ export class DashboardComponent implements AfterViewInit {
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
 
   constructor(
-    private brdsql: BrdsqlService,
+    private brdsql: BrdsqlService,private dashboradTitle: Title
   ) { }
 
   ngOnInit(): void {
+    this.dashboradTitle.setTitle("Dashborad")
     this.getCpdataFarmer();
   }
 

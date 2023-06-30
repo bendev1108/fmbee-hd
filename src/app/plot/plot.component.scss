@@ -9,6 +9,17 @@
   font-size: 14px;
 }
 
+.mat-column-intlandno,
+.mat-column-dateUpdate,
+.mat-column-fmname,
+.mat-column-canetype,
+.mat-column-supzone,
+.mat-column-landvalue,
+.mat-column-route,
+.mat-column-icon {
+  text-align: center;
+}
+
 .example-container {
   width: 100%;
   max-height: 500px;
@@ -20,20 +31,39 @@
 .example-full-width {
   width: 100%;
 }
+.material-icons{
+  margin-right: 1rem;
+}
 
-.material-icons {
+#border {
   color: #005eff;
+}
+
+#folder {
+  color:#58D68D;
+}
+
+
+#print {
+  color: green;
+}
+
+#delete {
+  color: red;
 }
 
 .offcanvas {
   width: 2500px;
 }
+
 .alert {
   color: red;
   text-align: left;
   font-size: 12px;
 }
-th,td{
+
+th,
+td {
   border: 2px solid lightgray;
 }
 
@@ -44,9 +74,14 @@ th,td{
 .field {
   width: 11rem;
 }
-.needs-validation{
+
+.needs-validation {
   margin-top: 1rem;
 }
+#DetailFarmer{
+  width: auto;
+}
+
 // #itid,#supcode{
 //   display: none;
 // }

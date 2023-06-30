@@ -4,10 +4,10 @@
   <div class="header-box pd-3">
     <button class="btn d-md-none d-block close-btn px-1 py-0 text-white" data-widget="pushmenu">
       <i class="fa-solid fa-xmark" style="color: #ffffff;"></i></button>
-    <a class="brand-link">
+    <div class="brand-link">
       <img [src]="imglogo" alt="BRR" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">BRR</span>
-    </a>
+      <span class="brand-text font-weight-light">Fmbrr HP</span>
+    </div>
   </div>
 
 
@@ -19,7 +19,7 @@
         <img [src]="imguser" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a class="d-block">BRF</a>
+        <span id="username" class="text-white">....</span>
       </div>
 
     </div>
@@ -28,7 +28,7 @@
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item">
-          <a routerLink="/" class="nav-link">
+          <a routerLink="Dashboard" class="nav-link">
             <i class="fa-solid fa-gauge fa-xl"></i>
             <p>
               Dashboard
@@ -114,10 +114,10 @@
         <hr class="h-color mx-2" style="background: white">
 
         <li class="nav-item">
-          <a routerLink="/login" class="nav-link">
+          <a (click)="logout()" class="nav-link">
             <i class="fa-solid fa-arrow-right-from-bracket fa-xl"></i>
             <p>
-              Login
+              Logout
             </p>
           </a>
         </li>

@@ -1,3 +1,4 @@
+import { FormBuilder, Validators } from '@angular/forms';
 import { Recordset } from 'src/app/service/brdsql.module';
 
 import { Injectable } from '@angular/core';
@@ -14,14 +15,41 @@ export class BrdsqlService {
   constructor(private http: HttpClient) { }
 
   // api ของเรา สำหรับการเรียกดูข้อมูลต่างๆ ในฐานข้อมูล SQL Server ชองบริษัทฯ
+
   baseSelectUrl = "https://asia-southeast2-brr-farmluck.cloudfunctions.net/dbcps/select_s_f_w?"
+  // s=*&f=[CPS6263].[dbo].[v_cp_data]&w=year='2324' and fmcode='0000149888' order by intlandno
+
   baseUpdateUrl = "https://asia-southeast2-brr-farmluck.cloudfunctions.net/dbcps/update_t_s_w?"
   baseInsertUrl = "https://asia-southeast2-brr-farmluck.cloudfunctions.net/dbcps/insert_t_c_v?"
-  baseLoginUrl = "https://asia-southeast2-brr-farmluck.cloudfunctions.net/dbcps/select_s_f_w?s=supcode,supname,username,zonedata,userlevel,tel,suppic_url&f=[dbCPS].[dbo].[users]&w=username='benjama' and password = '12345'"
+
+  baseLoginUrl = "https://asia-southeast2-brr-farmluck.cloudfunctions.net/dbcps/select_s_f_w?"
   // s=supcode,supname,username,zonedata,userlevel,tel,suppic_url&f=[dbCPS].[dbo].[users]&w=username='benjama' and password = '12345'
-  // s=*&f=[CPS6263].[dbo].[v_cp_data]&w=year='2324' and fmcode='0000149888' order by intlandno
+
+  baseLoginDataUrl = "https://asia-southeast2-brr-farmluck.cloudfunctions.net/dbcps/select_s_f_w?"
+  // s=*&f=[dbFarmluck_dev].[dbo].[v_activitiesFarmer]&w=supcode = '8042' order by dateUpdate desc
+
   // yearsUrl = "https://asia-southeast2-brr-farmluck.cloudfunctions.net/dbcps/select_s_f_w?s=*&f=[CPS6263].[dbo].[yearID]&w=1=1 order by yearTh"
   // s=*&f=[CPS6263].[dbo].[yearID]&w=1=1 order by yearTh
+
+  //เรียกดูข้อมูล Login
+  getLoginData() {
+    let url = this.baseLoginDataUrl
+      + 's=*&f=[dbFarmluck_dev].[dbo].[v_activitiesFarmer]&w=supcode = '+8042+' order by dateUpdate desc'
+    return this.http.get<any[]>(url)
+  }
+
+  //เรียกข้อมูล Login
+  getLogin(username: any, password: any) {
+    let url = this.baseLoginUrl
+      + 's=supcode,supname,username,zonedata,userlevel,tel,suppic_url&f=[dbCPS].[dbo].[users]&w=username=' + username + ' and password = ' + password + ''
+    return this.http.get<any[]>(url)
+  }
+
+  //เรียกดูข้อมูล Update
+  getUpdateData() {
+    let url = this.baseUpdateUrl
+    return this.http.get<any[]>(url)
+  }
 
   // เรียกดูข้อมูลปีการผลิต
   getYears() {
@@ -39,12 +67,17 @@ export class BrdsqlService {
   }
 
   getDetail(itid: string): Observable<any[]> {
-
     const myparams = {
       'itid': itid.toString()
     }
-
     return this.http.get<any[]>(this.baseSelectUrl, { params: myparams });
+  }
+
+  // เรียกดูข้อมูล Insert
+  getInsertDatafarmer() {
+    let url = this.baseInsertUrl
+
+    return this.http.get<any[]>(url)
   }
 
   // เพิ่มข้อมูล กิจกรรมแปลงผลผลิตสูง
@@ -58,18 +91,18 @@ export class BrdsqlService {
       + "chemical1Plan,chemical1Date,chemical1Intime,chemical1Ratio,chemical1Method,chemical1More,"
       + "chemical2Plan,chemical2Date,chemical2Intime,chemical2Ratio,chemical2Method,chemical2More,"
       + "chemical3Plan,chemical3Date,chemical3Intime,chemical3Ratio,chemical3Method,chemical3More,"
-      + "rootingPlan,rootingDate,rootingIntime,rootingMethod,rootingMore,plotMoreDesc&"
+      + "rootingPlan,rootingDate,rootingIntime,rootingMethod,rootingMore,plotMoreDesc,plotName&"
       + "v=" + "'"
-       + f.itid + "','" //id แปลงอ้อย
-       + f.supcode + "','"//รหัสผู้บันทึกข้อมูล
-       + f.yieldTarget + "','"//เป้าหมายผลผลิต ตัน/ไร่
-       + f.yieldEstimate + "','"//ผลผลิตประเมิน ตัน/ไร่
+      + f.itid + "','" //id แปลงอ้อย
+      + f.supcode + "','"//รหัสผู้บันทึกข้อมูล
+      + f.yieldTarget + "','"//เป้าหมายผลผลิต ตัน/ไร่
+      + f.yieldEstimate + "','"//ผลผลิตประเมิน ตัน/ไร่
 
-       + f.hardSoilBlastPlan + "','"// วางแผนระเบิดดินดานวันที่
-       + f.hardSoilBlastDate + "','"//  ระเบิดดินดานแล้ววันที่
-       + f.hardSoilBlastIntime + "','"//การระเบิดดินดานทันเวลาหรือไม่
-       + f.hardSoilBlastQuality + "','"//การระเบิดดินดานมีคุณภาพหรือไม่
-       + f.hardSoilBlastMethod + "','"//วิธีการระเบิดดินดาน
+      + f.hardSoilBlastPlan + "','"// วางแผนระเบิดดินดานวันที่
+      + f.hardSoilBlastDate + "','"//  ระเบิดดินดานแล้ววันที่
+      + f.hardSoilBlastIntime + "','"//การระเบิดดินดานทันเวลาหรือไม่
+      + f.hardSoilBlastQuality + "','"//การระเบิดดินดานมีคุณภาพหรือไม่
+      + f.hardSoilBlastMethod + "','"//วิธีการระเบิดดินดาน
       + f.hardSoilBlastMore + "','"//เรื่องอื่นๆเกี่ยวกับการระเบิดดินดาน
 
       + f.organicPlan + "','"//วางแผนใส่ปุ๋ยอินทรีย์วันที่
@@ -87,8 +120,8 @@ export class BrdsqlService {
       + f.dolomiteMore + "','"//เรื่องอื่นๆเกี่ยวกับการใส่โดโลไมท์
 
       + f.chemical1Plan + "','"//วางแผนใส่ ปุ๋ยเคมี1 วันที่
-       + f.chemical1Date + "','"//วันที่ใส่ เคมี1
-       + f.chemical1Intime + "','"//ใส่ ปุ๋ยเคมี1 ทันเวลาหรือไม่
+      + f.chemical1Date + "','"//วันที่ใส่ เคมี1
+      + f.chemical1Intime + "','"//ใส่ ปุ๋ยเคมี1 ทันเวลาหรือไม่
       + f.chemical1Ratio + "','"//อัตรา ปุ๋ยเคมี1 กก./ไร่
       + f.chemical1Method + "','"//วิธีการใส่ ปุ๋ยเคมี1 คน รถ
       + f.chemical1More + "','"//เรื่องอื่นๆเกี่ยวกับการใส ปุ๋ยเคมี1
@@ -105,7 +138,7 @@ export class BrdsqlService {
       + f.chemical3Intime + "','"//ใส่ ปุ๋ยเคมี3 ทันเวลาหรือไม่
       + f.chemical3Ratio + "','"//อัตรา ปุ๋ยเคมี3 กก./ไร่
       + f.chemical3Method + "','"//วิธีการใส่ ปุ๋ยเคมี3 คน รถ
-       + f.chemical3More + "','"//เรื่องอื่นๆเกี่ยวกับการใส ปุ๋ยเคมี3
+      + f.chemical3More + "','"//เรื่องอื่นๆเกี่ยวกับการใส ปุ๋ยเคมี3
 
       + f.rootingPlan + "','"//วางแผน การพูนโคน วันที่
       + f.rootingDate + "','"//วันที่ทำ การพูนโคน
@@ -113,44 +146,53 @@ export class BrdsqlService {
       + f.rootingMethod + "','"//วิธีการพูนโคน คน รถ
       + f.rootingMore + "','"//เรื่องอื่นๆเกี่ยวกับ การพูนโคน
 
-      + f.plotMoreDesc + "'"//รายละเอียดแปลงเพิ่มเติมต่างๆ
+      + f.plotMoreDesc + "','"//รายละเอียดแปลงเพิ่มเติมต่างๆ
+      + f.plotName + "'" // ชื่อเรียกแปลงอ้อย
     console.log('url ', url)
     return this.http.get<any[]>(url);
   }
 
-  login(loginForm: any): Observable<any> {
-    const myheaders = { 'Content-Type': 'application/json' };
-    const body = {
-      "grant_type": 'password',
-      "username": loginForm.email,
-      "password": loginForm.password,
-      "udience": 'https://dev-mfl5m1g0fzerb1bv.us.auth0.com/api/v2/',
-      "scope": 'openid',
-      "client_id": 'tTYwiAi3BI8VwamJmwaSCi63bIyQNVj7'
-    };
-
-    return this.http.post<any>(this.baseLoginUrl, body, { headers: myheaders });
-  }
-
-  // isLogin(): {
-  //   // const token = JSON.parse(localStorage.getItem('token'));
-  //   // if (token){
-  //   //   return true;
-  //   // }else{
-  //   //   return false;
-  //   // }
-  // }
-
-  // getProfile(): Observable<any>{
-  //   const token = JSON.parse(localStorage.getItem('token'));
-  //   const myheaders ={
-  //     'Authorization': 'Bearer '+ token.access_token
+  // login(loginForm: any): Observable<any> {
+  //   const myheaders = { 'Content-Type': 'application/json' };
+  //   const body = {
+  //     "supcode": "8042",
+  //     "supname": "น.ส.เบญจมา  ขจัดโรคา",
+  //     "username": loginForm.email,
+  //     "password": loginForm.password,
+  //     "zonedata": "01",
+  //     "userlevel": "1",
+  //     "tel": "          ",
+  //     "suppic_url": "https://storage.googleapis.com/brr-farmluck.appspot.com/brr_smartfarm/photos/sup_profile/8042/8042.png"
+  //     // "grant_type": 'password',
+  //     // "username": loginForm.email,
+  //     // "password": loginForm.password,
+  //     // "udience": 'https://dev-mfl5m1g0fzerb1bv.us.auth0.com/api/v2/',
+  //     // "scope": 'openid',
+  //     // "client_id": 'tTYwiAi3BI8VwamJmwaSCi63bIyQNVj7'
   //   };
 
-  //    return this.http.get<any>(this.profileUrl, { headers: myheaders });
-  //  }
+  //   return this.http.post<any>(this.baseLoginUrl, body, { headers: myheaders });
+  // }
 
-  // logout(){
+  // isLogin(): boolean {
+  //   const token = JSON.parse(localStorage.getItem('token') || '{}');
+  //   if (token) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
+
+  // getProfile(): Observable<any> {
+  //   const token = JSON.parse(localStorage.getItem('token') || '{}');
+  //   const myheaders = {
+  //     'Authorization': 'Bearer ' + token.access_token
+  //   };
+
+  //   return this.http.get<any>(this.baseLoginUrl, { headers: myheaders });
+  // }
+
+  // logout() {
   //   localStorage.removeItem('token');
   //   // localStorage.removeItem('profile');
   // }
