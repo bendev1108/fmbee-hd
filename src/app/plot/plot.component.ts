@@ -1,6 +1,4 @@
 import { Router } from '@angular/router';
-import { jsPDF } from 'jspdf';
-import { writeFile } from 'xlsx';
 
 import { Component, AfterViewInit, OnInit, ViewChild } from '@angular/core';
 import { BrdsqlService } from '../service/brdsql.service';
@@ -157,27 +155,6 @@ export class PlotComponent implements AfterViewInit, OnInit {
 
   }
 
-  // ออกรายงาน PDF
-  generatePDFReport() {
-    // Create a new jsPDF instance
-    const doc = new jsPDF('p', 'pt', 'a4');
-
-    // Set the report title
-    doc.setFontSize(20);
-    // doc.html('<div class="img">' +
-    //   ' <img src="logo.png" alt="">' +
-    //   '</div>');
-    doc.text(
-      "PDF Report",
-      10, 20);
-
-    // Add report content
-    doc.setFontSize(12);
-    doc.text("This is the content of the PDF report.", 10, 30);
-
-    // Save the PDF file
-    doc.save("report.pdf");
-  }
 
 
   submit(search: NgForm) {

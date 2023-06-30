@@ -927,32 +927,71 @@
           <tr>
             <th>#</th>
             <th>รายละเอียด</th>
+            <th colspan="2">การระเบิดดินดาน ภายใน 30 วัน</th>
+            <th colspan="2">การใส่ปุ๋ยอินทรีย์ ภายใน 30 วัน</th>
+            <th colspan="2">การใส่โดโลไมท์ ภายใน 30 วัน</th>
           </tr>
         </thead>
         <tbody *ngIf="s_landno" align="center">
           <tr>
             <td>id แปลงอ้อย</td>
             <td>{{s_landno.itid}}</td>
+            <td>วางแผนระเบิดดินดานวันที่</td>
+            <td>{{s_landno.hardSoilBlastPlan}}</td>
+            <td>วางแผนใส่ปุ๋ยอินทรีย์วันที่</td>
+            <td>{{s_landno.organicPlan}}</td>
+            <td>วางแผนใส่โดโลไมท์วันที่</td>
+            <td>{{s_landno.dolomitePlan}}</td>
           </tr>
           <tr>
             <td>วันที่เพิ่มข้อมูล</td>
             <td>{{s_landno.dateAdd}}</td>
+            <td>ระเบิดดินดานแล้ววันที่</td>
+            <td>{{s_landno.hardSoilBlastDate}}</td>
+            <td>วันที่ใส่ปุ๋ยอินทรีย์</td>
+            <td>{{s_landno.organicDate}}</td>
+            <td>วันที่ใส่โดโลไมท์</td>
+            <td>{{s_landno.dolomiteDate}}</td>
           </tr>
           <tr>
             <td>วันที่อัพเดตข้อมูล</td>
             <td>{{s_landno.dateUpdate}}</td>
+            <td>การระเบิดดินดานทันเวลาหรือไม่</td>
+            <td>{{s_landno.hardSoilBlastIntime}}</td>
+            <td>ใส่ปุ๋ยอินทรีย์ทันเวลาหรือไม่</td>
+            <td>{{s_landno.organicIntime}}</td>
+            <td>ใส่โดโลไมท์ทันเวลาหรือไม่</td>
+            <td>{{s_landno.dolomiteIntime}}</td>
           </tr>
           <tr>
             <td>ชื่อประเภทอ้อย</td>
             <td>{{s_landno.canename}}</td>
+            <td>การระเบิดดินดานมีคุณภาพหรือไม่</td>
+            <td>{{s_landno.hardSoilBlastQuality}}</td>
+            <td>อัตราปุ๋ยอินทรีย์ ตัน/ไร่</td>
+            <td>{{s_landno.organicRatio}}</td>
+            <td>อัตราโดโลไมท์ ตัน/ไร่</td>
+            <td>{{s_landno.dolomiteRatio}}</td>
           </tr>
           <tr>
             <td>รหัสผู้บันทึกข้อมูล</td>
             <td>{{s_landno.supcode}}</td>
+            <td>วิธีการระเบิดดินดาน</td>
+            <td>{{s_landno.hardSoilBlastMethod}}</td>
+            <td>วิธีการใส่ปุ๋ยอินทรีย์</td>
+            <td>{{s_landno.organicMethod}}</td>
+            <td>วิธีการใส่โดโลไมท์</td>
+            <td>{{s_landno.dolomiteMethod}}</td>
           </tr>
           <tr>
             <td>เป้าหมายผลผลิต ตัน/ไร่</td>
             <td>{{s_landno.yieldTarget}}</td>
+            <td>เรื่องอื่นๆเกี่ยวกับการระเบิดดินดาน</td>
+            <td>{{s_landno.hardSoilBlastMore}}</td>
+            <td>เรื่องอื่นๆเกี่ยวกับการใส่ปุ๋ยอินทรีย์</td>
+            <td>{{s_landno.organicMore}}</td>
+            <td>เรื่องอื่นๆเกี่ยวกับการใส่โดโลไมท์</td>
+            <td>{{s_landno.dolomiteMore}}</td>
           </tr>
           <tr>
             <td>ผลผลิตประเมิน ตัน/ไร่</td>
@@ -965,9 +1004,7 @@
         </tbody>
         <thead align="center">
           <tr>
-            <th colspan="2">การระเบิดดินดาน ภายใน 30 วัน</th>
-            <th colspan="2">การใส่ปุ๋ยอินทรีย์ ภายใน 30 วัน</th>
-            <th colspan="2">การใส่โดโลไมท์ ภายใน 30 วัน</th>
+            
             <th colspan="2">การใส่ ปุ๋ยเคมี1 ภายใน 30 วัน</th>
             <th colspan="2">การใส่ ปุ๋ยเคมี2 ภายใน 75 วัน</th>
             <th colspan="2">การพูนโคน ภายใน 75 วัน</th>
@@ -976,12 +1013,7 @@
         </thead>
         <tbody *ngIf="s_landno" align="center">
           <tr>
-            <td>วางแผนระเบิดดินดานวันที่</td>
-            <td>{{s_landno.hardSoilBlastPlan}}</td>
-            <td>วางแผนใส่ปุ๋ยอินทรีย์วันที่</td>
-            <td>{{s_landno.organicPlan}}</td>
-            <td>วางแผนใส่โดโลไมท์วันที่</td>
-            <td>{{s_landno.dolomitePlan}}</td>
+           
             <td>วางแผนใส่ ปุ๋ยเคมี1 วันที่</td>
             <td>{{s_landno.chemical1Plan}}</td>
             <td>วางแผนใส่ ปุ๋ยเคมี2 วันที่</td>
@@ -992,12 +1024,7 @@
             <td>{{s_landno.chemical3Plan}}</td>
           </tr>
           <tr>
-            <td>ระเบิดดินดานแล้ววันที่</td>
-            <td>{{s_landno.hardSoilBlastDate}}</td>
-            <td>วันที่ใส่ปุ๋ยอินทรีย์</td>
-            <td>{{s_landno.organicDate}}</td>
-            <td>วันที่ใส่โดโลไมท์</td>
-            <td>{{s_landno.dolomiteDate}}</td>
+            
             <td>วันที่ใส่ เคมี1</td>
             <td>{{s_landno.chemical1Date}}</td>
             <td>วันที่ใส่ เคมี2</td>
@@ -1008,12 +1035,7 @@
             <td>{{s_landno.chemical3Date}}</td>
           </tr>
           <tr>
-            <td>การระเบิดดินดานทันเวลาหรือไม่</td>
-            <td>{{s_landno.hardSoilBlastIntime}}</td>
-            <td>ใส่ปุ๋ยอินทรีย์ทันเวลาหรือไม่</td>
-            <td>{{s_landno.organicIntime}}</td>
-            <td>ใส่โดโลไมท์ทันเวลาหรือไม่</td>
-            <td>{{s_landno.dolomiteIntime}}</td>
+           
             <td>ใส่ ปุ๋ยเคมี1 ทันเวลาหรือไม่</td>
             <td>{{s_landno.chemical1Intime}}</td>
             <td>ใส่ ปุ๋ยเคมี2 ทันเวลาหรือไม่</td>
@@ -1024,12 +1046,7 @@
             <td>{{s_landno.chemical3Intime}}</td>
           </tr>
           <tr>
-            <td>การระเบิดดินดานมีคุณภาพหรือไม่</td>
-            <td>{{s_landno.hardSoilBlastQuality}}</td>
-            <td>อัตราปุ๋ยอินทรีย์ ตัน/ไร่</td>
-            <td>{{s_landno.organicRatio}}</td>
-            <td>อัตราโดโลไมท์ ตัน/ไร่</td>
-            <td>{{s_landno.dolomiteRatio}}</td>
+            
             <td>อัตรา ปุ๋ยเคมี1 กก./ไร่</td>
             <td>{{s_landno.chemical1Ratio}}</td>
             <td>อัตรา ปุ๋ยเคมี2 กก./ไร่</td>
@@ -1040,12 +1057,7 @@
             <td>{{s_landno.chemical3Ratio}}</td>
           </tr>
           <tr>
-            <td>วิธีการระเบิดดินดาน</td>
-            <td>{{s_landno.hardSoilBlastMethod}}</td>
-            <td>วิธีการใส่ปุ๋ยอินทรีย์</td>
-            <td>{{s_landno.organicMethod}}</td>
-            <td>วิธีการใส่โดโลไมท์</td>
-            <td>{{s_landno.dolomiteMethod}}</td>
+           
             <td>วิธีการใส่ ปุ๋ยเคมี1 คน รถ</td>
             <td>{{s_landno.chemical1Method}}</td>
             <td>วิธีการใส่ ปุ๋ยเคมี2 คน รถ</td>
@@ -1056,12 +1068,7 @@
             <td>{{s_landno.chemical3Method}}</td>
           </tr>
           <tr>
-            <td>เรื่องอื่นๆเกี่ยวกับการระเบิดดินดาน</td>
-            <td>{{s_landno.hardSoilBlastMore}}</td>
-            <td>เรื่องอื่นๆเกี่ยวกับการใส่ปุ๋ยอินทรีย์</td>
-            <td>{{s_landno.organicMore}}</td>
-            <td>เรื่องอื่นๆเกี่ยวกับการใส่โดโลไมท์</td>
-            <td>{{s_landno.dolomiteMore}}</td>
+           
             <td>เรื่องอื่นๆเกี่ยวกับการใส ปุ๋ยเคมี1</td>
             <td>{{s_landno.chemical1More}}</td>
             <td>เรื่องอื่นๆเกี่ยวกับการใส ปุ๋ยเคมี2</td>
