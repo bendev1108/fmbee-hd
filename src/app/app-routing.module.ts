@@ -1,3 +1,4 @@
+import { TestComponent } from './test/test.component';
 
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -22,8 +23,9 @@ const routes: Routes = [
   { path: 'MapDetail', component: MapDetailComponent },
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
-  { path: 'Withdraw factors of production', component: ProductionWfoComponent },
-  { path: 'Promotion money', component: PromotionMoneyComponent },
+  { path: 'production', component: ProductionWfoComponent },
+  { path: 'promotion', component: PromotionMoneyComponent },
+  { path: 'test', component: TestComponent },
   { path: '**', component: PagenotfoundComponent }
 ];
 

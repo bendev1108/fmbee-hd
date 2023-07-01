@@ -82,7 +82,9 @@ export class BrdsqlService {
 
   // เพิ่มข้อมูล กิจกรรมแปลงผลผลิตสูง
   insertFmActivity(f: any): Observable<any[]> {
+    console.log('Form value: ' ,f)
     let url = this.baseInsertUrl
+       /*
       + "t=[dbFarmluck_dev].[dbo].[activitiesFarmer]&"
       + "c=itid,supcode,yieldTarget,yieldEstimate,"
       + "hardSoilBlastPlan,hardSoilBlastDate,hardSoilBlastIntime,hardSoilBlastQuality,hardSoilBlastMethod,hardSoilBlastMore,"
@@ -94,9 +96,9 @@ export class BrdsqlService {
       + "rootingPlan,rootingDate,rootingIntime,rootingMethod,rootingMore,plotMoreDesc,plotName&"
       + "v=" + "'"
       + f.itid + "','" //id แปลงอ้อย
-      + f.supcode + "','"//รหัสผู้บันทึกข้อมูล
-      + f.yieldTarget + "','"//เป้าหมายผลผลิต ตัน/ไร่
-      + f.yieldEstimate + "','"//ผลผลิตประเมิน ตัน/ไร่
+      + f.supcode + "',"//รหัสผู้บันทึกข้อมูล
+      + f.yieldTarget + ","//เป้าหมายผลผลิต ตัน/ไร่
+      + f.yieldEstimate + ",'"//ผลผลิตประเมิน ตัน/ไร่
 
       + f.hardSoilBlastPlan + "','"// วางแผนระเบิดดินดานวันที่
       + f.hardSoilBlastDate + "','"//  ระเบิดดินดานแล้ววันที่
@@ -148,6 +150,7 @@ export class BrdsqlService {
 
       + f.plotMoreDesc + "','"//รายละเอียดแปลงเพิ่มเติมต่างๆ
       + f.plotName + "'" // ชื่อเรียกแปลงอ้อย
+      */
     console.log('url ', url)
     return this.http.get<any[]>(url);
   }

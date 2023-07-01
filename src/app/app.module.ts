@@ -27,6 +27,7 @@ import { MapDetailComponent } from './map/map-detail/map-detail.component';
 import { PromotionMoneyComponent } from './information-scf/promotion-money/promotion-money.component';
 import { ProductionWfoComponent } from './information-scf/production-wfo/production-wfo.component';
 import { LogoutComponent } from './logout/logout.component';
+import { TestComponent } from './test/test.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { LogoutComponent } from './logout/logout.component';
     PromotionMoneyComponent,
     ProductionWfoComponent,
     LogoutComponent,
+    TestComponent,
 
   ],
   imports: [

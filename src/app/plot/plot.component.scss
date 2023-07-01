@@ -43,17 +43,15 @@
   color:#58D68D;
 }
 
-
-#print {
-  color: green;
-}
-
 #delete {
   color: red;
 }
 
 .offcanvas {
   width: 2500px;
+}
+.offcanvas-body#Activity{
+  margin-left: 2rem;
 }
 
 .alert {
@@ -78,10 +76,15 @@ td {
 .needs-validation {
   margin-top: 1rem;
 }
-#DetailFarmer{
-  width: auto;
+.col-md-4{
+  margin-bottom: 1rem;
 }
-
+#s_landno{
+  width: 15rem;
+}
+#landno{
+  width: 15rem;
+}
 // #itid,#supcode{
 //   display: none;
 // }

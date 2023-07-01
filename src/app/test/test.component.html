@@ -1,0 +1,33 @@
+<div class="content-wrapper p-3">
+  <form class="center" [formGroup]="myForm" (ngSubmit)="submit(myForm.value)">
+    <!-- ดึงข้อมูลใน Form มาแสดง -->
+    Form : {{ myForm.value | json }}
+    <hr>
+
+    <!-- กำหนดชื่อของ formControlName เพื่อใช้กำหนดชื่อของ formControl -->
+    <label>
+      itid :
+      <input matInput placeholder="itid" formControlName="itid">
+    </label>
+
+    <br>
+
+    <label>
+      supcode :
+      <input matInput placeholder="supcode" formControlName="supcode">
+    </label>
+
+    <label>
+      plotName :
+      <input matInput placeholder="plotName" formControlName="plotName">
+    </label>
+
+    <label>
+      ประเมิน :
+      <input matInput placeholder="yieldEstimate" formControlName="yieldEstimate">
+    </label>
+
+    <button type="submit"> Submit </button>
+
+  </form>
+</div>
