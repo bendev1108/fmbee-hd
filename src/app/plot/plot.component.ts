@@ -68,48 +68,48 @@ export class PlotComponent implements AfterViewInit, OnInit {
       //การระเบิดดินดาน (ภายในอายุ 30 วัน)
       hardSoilBlastPlan: '', //dd/mm/yyyy วางแผนระเบิดดินดานวันที่
       hardSoilBlastDate: '', //dd/mm/yyyy ระเบิดดินดานแล้ววันที่
-      hardSoilBlastIntime: '', //radio 1,2 การระเบิดดินดานทันเวลาหรือไม่
+      hardSoilBlastIntime: '', //radio Y,N การระเบิดดินดานทันเวลาหรือไม่
       hardSoilBlastQuality: '', //radio 1,2 การระเบิดดินดานมีคุณภาพหรือไม่
       hardSoilBlastMethod: '', //วิธีการระเบิดดินดาน
       hardSoilBlastMore: '', //เรื่องอื่นๆเกี่ยวกับการระเบิดดินดาน
       //ปุ๋ยอินทรีย์ (ภายในอายุ 30 วัน)
       organicPlan: '', //dd/mm/yyyy วางแผนใส่ปุ๋ยอินทรีย์วันที่
       organicDate: '', //dd/mm/yyyy วันที่ใส่ปุ๋ยอินทรีย์
-      organicIntime: '', //radio 1,2 ใส่ปุ๋ยอินทรีย์ทันเวลาหรือไม่
+      organicIntime: '', //radio Y,N ใส่ปุ๋ยอินทรีย์ทันเวลาหรือไม่
       organicRatio: '', //อัตราปุ๋ยอินทรีย์
       organicMethod: '', //radio 1,2 วิธีการใส่ปุ๋ยอินทรีย์
       organicMore: '', //เรื่องอื่นๆเกี่ยวกับการใส่ปุ๋ยอินทรีย์
       //โดโลไมท์ (ภายในอายุ 30 วัน)
       dolomitePlan: '', //dd/mm/yyyy วางแผนใส่โดโลไมท์วันที่
       dolomiteDate: '', //dd/mm/yyyy วันที่ใส่โดโลไมท์
-      dolomiteIntime: '', //radio 1,2 ใส่โดโลไมท์ทันเวลาหรือไม่
+      dolomiteIntime: '', //radio Y,N ใส่โดโลไมท์ทันเวลาหรือไม่
       dolomiteRatio: '', //อัตราโดโลไมท์
       dolomiteMethod: '', //radio 1,2 วิธีการใส่โดโลไมท์
       dolomiteMore: '', //เรื่องอื่นๆเกี่ยวกับการใส่โดโลไมท์
       //ใส่ปุ๋ยเคมีครั้งที่ 1 (ภายในอายุ 30 วัน)
       chemical1Plan: '', //dd/mm/yyyy วางแผนใส่ ปุ๋ยเคมี1 วันที่
       chemical1Date: '', //dd/mm/yyyy วันที่ใส่ เคมี1
-      chemical1Intime: '', //radio 1,2 ใส่ ปุ๋ยเคมี1 ทันเวลาหรือไม่
+      chemical1Intime: '', //radio Y,N ใส่ ปุ๋ยเคมี1 ทันเวลาหรือไม่
       chemical1Ratio: '', //อัตรา ปุ๋ยเคมี1 กก./ไร่
       chemical1Method: '', //radio 1,2 วิธีการใส่ ปุ๋ยเคมี1 คน รถ
       chemical1More: '', //เรื่องอื่นๆเกี่ยวกับการใส ปุ๋ยเคมี1
       //ใส่ปุ๋ยเคมีครั้งที่ 2 (ภายในอายุ 75 วัน)
       chemical2Plan: '', //dd/mm/yyyy วางแผนใส่ ปุ๋ยเคมี2 วันที่
       chemical2Date: '', //dd/mm/yyyy วันที่ใส่ เคมี2
-      chemical2Intime: '', //radio 1,2 ใส่ ปุ๋ยเคมี2 ทันเวลาหรือไม่
+      chemical2Intime: '', //radio Y,N ใส่ ปุ๋ยเคมี2 ทันเวลาหรือไม่
       chemical2Ratio: '', //อัตรา ปุ๋ยเคมี2 กก./ไร่
       chemical2Method: '', //radio 1,2 วิธีการใส่ ปุ๋ยเคมี2 คน รถ
       chemical2More: '', //เรื่องอื่นๆเกี่ยวกับการใส ปุ๋ยเคมี2
       //การพูนโคน เพื่อรองรับรถตัดอ้อย (ระยะเวลา 75 วัน)
       rootingPlan: '', //dd/mm/yyyy วางแผน การพูนโคน วันที่
       rootingDate: '', //dd/mm/yyyy วันที่ทำ การพูนโคน
-      rootingIntime: '', //radio 1,2 การพูนโคน ทันเวลาหรือไม่
+      rootingIntime: '', //radio Y,N การพูนโคน ทันเวลาหรือไม่
       rootingMethod: '', //radio 1,2 วิธีการพูนโคน คน รถ
       rootingMore: '', //เรื่องอื่นๆเกี่ยวกับ การพูนโคน
       //ใส่ปุ๋ยเคมีครั้งที่ 3 เพื่อเพิ่มผลผลิต (ภายในอายุ 90 วัน)
       chemical3Plan: '', //dd/mm/yyyy วางแผนใส่ ปุ๋ยเคมี3 วันที่
       chemical3Date: '', //dd/mm/yyyy วันที่ใส่ เคมี3
-      chemical3Intime: '', //radio 1,2 ใส่ ปุ๋ยเคมี3 ทันเวลาหรือไม่
+      chemical3Intime: '', //radio Y,N ใส่ ปุ๋ยเคมี3 ทันเวลาหรือไม่
       chemical3Ratio: '', //อัตรา ปุ๋ยเคมี3 กก./ไร่
       chemical3Method: '', //radio 1,2 วิธีการใส่ ปุ๋ยเคมี3 คน รถ
       chemical3More: '', //เรื่องอื่นๆเกี่ยวกับการใส ปุ๋ยเคมี3
