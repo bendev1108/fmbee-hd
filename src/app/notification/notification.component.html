@@ -1,0 +1,8 @@
+<div class="content-wrapper p-3">
+  <div class="notification-container">
+    <div *ngFor="let notification of notifications; let i = index" class="notification">
+      <span>{{ notification }}</span>
+      <button (click)="removeNotification(i)">Close</button>
+    </div>
+  </div>
+</div>

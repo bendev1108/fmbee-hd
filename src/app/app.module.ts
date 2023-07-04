@@ -28,6 +28,8 @@ import { PromotionMoneyComponent } from './information-scf/promotion-money/promo
 import { ProductionWfoComponent } from './information-scf/production-wfo/production-wfo.component';
 import { LogoutComponent } from './logout/logout.component';
 import { TestComponent } from './test/test.component';
+import { NotificationComponent } from './notification/notification.component';
+import { ExcelComponent } from './excel/excel.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,8 @@ import { TestComponent } from './test/test.component';
     ProductionWfoComponent,
     LogoutComponent,
     TestComponent,
+    NotificationComponent,
+    ExcelComponent,
 
   ],
   imports: [

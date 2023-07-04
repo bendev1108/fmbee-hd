@@ -1,4 +1,5 @@
 import { Router } from '@angular/router';
+import * as XLSX from 'xlsx';
 
 import { Component, AfterViewInit, OnInit, ViewChild } from '@angular/core';
 import { BrdsqlService } from '../service/brdsql.service';
@@ -22,10 +23,10 @@ export class PlotComponent implements AfterViewInit, OnInit {
   UpdateData?: any = [];
   loginData?: any = [];
   // ข้อมูลแปลงอ้อยตามปีการผลิตและบัญชีชาวไร่
-  displayedColumns: string[] = ['intlandno', 'fmname', 'canetype', 'supzone', 'icon'
+  displayedColumns: string[] = ['intlandno', 'fmname', 'CaneTypeName', 'caneage', 'supzone', 'route', 'icon'
   ];
   // รายละเอียดข้อมูลแปลงอ้อยตามปีการผลิตและบัญชีชาวไร่
-  displayedColumnsDetail: string[] = ['dateUpdate', 'intlandno', 'fmname', 'canetype', 'landvalue', 'supzone', 'route', 'icon'];
+  displayedColumnsDetail: string[] = ['dateUpdate', 'intlandno', 'fmname', 'CaneTypeName', 'landvalue', 'supzone', 'route', 'icon'];
   // ข้อมูลแปลงอ้อย
   cpfarmerData?: any = [];
   // ข้อมูลปีการผลิต
@@ -45,8 +46,6 @@ export class PlotComponent implements AfterViewInit, OnInit {
   // สร้างตัวแปรมาชื่อว่า myForm โดยเก็บเป็นรูปแบบ FormGroup
   myForm!: FormGroup;
 
-
-
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort!: MatSort;
 
@@ -62,7 +61,7 @@ export class PlotComponent implements AfterViewInit, OnInit {
       itid: '', //id แปลงอ้อย
       supcode: '', //รหัสผู้บันทึกข้อมูล
       plotName: '', //ชื่อเรียกแปลงอ้อย
-      yieldEstimate: 10, //ผลผลิตประเมิน ตัน/ไร่
+      yieldEstimate: 0, //ผลผลิตประเมิน ตัน/ไร่
       yieldTarget: 0, //เป้าหมายผลผลิต ตัน/ไร่
       plotMoreDesc: '', //รายละเอียดแปลงเพิ่มเติมต่างๆ
       //การระเบิดดินดาน (ภายในอายุ 30 วัน)
@@ -125,7 +124,6 @@ export class PlotComponent implements AfterViewInit, OnInit {
       next: (year: any) => {
         this.yearid = year.recordset
         // console.log('res :', this.yearid)
-
       }
     })
   }
@@ -136,7 +134,6 @@ export class PlotComponent implements AfterViewInit, OnInit {
       next: (login: any) => {
         this.loginData = login.recordset
         // console.log('res :', this.yearid)
-
       }
     })
   }
@@ -151,17 +148,6 @@ export class PlotComponent implements AfterViewInit, OnInit {
     console.log('s_landno', this.s_landno)
     console.log('itid', this.itid)
   }
-
-  //filter รายแปลงตาม itid activity
-  // s_activity?: any = [];
-  // s_aivity(activity: any) {
-  //   console.log('element :', activity)
-  //   //this.s_aivity=this.alldata.filter((el:any) => el.itid == itid);
-  //   this.s_aivity = activity;
-  //   this.itid = this.s_aivity.itid
-  //   console.log('s_aivity', this.s_aivity)
-  //   console.log('itid', this.itid)
-  // }
 
   // เรียกดูข้อมูลแปลงอ้อยตามปีการผลิตและบัญชีชาวไร่
   async getCpdataFarmer() {
@@ -277,6 +263,40 @@ export class PlotComponent implements AfterViewInit, OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.insertalldata.filter = filterValue.trim().toLowerCase();
   }
+
+  generateExcelReport() {
+    // Sample data
+    const data = [
+      ['Name', 'Age', 'Country'],
+      ['John Doe', 25, 'USA'],
+      ['Jane Smith', 30, 'Canada'],
+      ['Bob Johnson', 35, 'UK']
+    ];
+  // Create a new workbook
+  const workbook: XLSX.WorkBook = XLSX.utils.book_new();
+
+  // Create a worksheet
+  const worksheet: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(data);
+
+  // Add the worksheet to the workbook
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'Report');
+
+  // Generate Excel file
+  const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+
+  // Save the Excel file
+  this.saveExcelFile(excelBuffer, 'report.xlsx');
+}
+
+
+private saveExcelFile(buffer: any, fileName: string) {
+  const data: Blob = new Blob([buffer], { type: 'application/octet-stream' });
+
+  const link: HTMLAnchorElement = document.createElement('a');
+  link.href = window.URL.createObjectURL(data);
+  link.download = fileName;
+  link.click();
+}
 
   ngAfterViewInit(): void {
     const script = document.createElement('script');

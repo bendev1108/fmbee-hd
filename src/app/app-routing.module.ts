@@ -1,3 +1,4 @@
+import { NotificationComponent } from './notification/notification.component';
 import { TestComponent } from './test/test.component';
 
 import { NgModule } from '@angular/core';
@@ -13,6 +14,7 @@ import { PromotionMoneyComponent } from './information-scf/promotion-money/promo
 import { SugarcaneCueGroupsComponent } from './sugarcane-cue-groups/sugarcane-cue-groups.component';
 import { PlotDetailComponent } from './plot/plot-detail/plot-detail.component';
 import { LogoutComponent } from './logout/logout.component';
+
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'Dashboard', component: DashboardComponent },
@@ -26,6 +28,7 @@ const routes: Routes = [
   { path: 'production', component: ProductionWfoComponent },
   { path: 'promotion', component: PromotionMoneyComponent },
   { path: 'test', component: TestComponent },
+  { path: 'notification', component: NotificationComponent },
   { path: '**', component: PagenotfoundComponent }
 ];
 

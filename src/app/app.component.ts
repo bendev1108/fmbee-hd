@@ -1,4 +1,5 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { NotificationComponent } from './notification/notification.component';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +8,13 @@ import { AfterViewInit, Component } from '@angular/core';
 })
 export class AppComponent implements AfterViewInit{
   title = 'fmbrr';
+
+  @ViewChild(NotificationComponent)
+  notificationComponent: NotificationComponent = new NotificationComponent;
+
+  showNotification() {
+    this.notificationComponent.addNotification('This is a sample notification.');
+  }
 
   ngAfterViewInit(): void {
     const script = document.createElement('script');
